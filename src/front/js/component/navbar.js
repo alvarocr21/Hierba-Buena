@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import logo from "../../img/peppermint.jpg";
 export const Navbar = () => {
 	const [menuDisplay, setMenuDisplay] = useState(false);
 	let fadeClass = undefined;
@@ -15,21 +15,25 @@ export const Navbar = () => {
 	}
 
 	return (
-		<nav>
+		<nav className="fixed-top">
 			<div className="hamburger" onClick={() => setMenuDisplay(!menuDisplay)}>
 				<div className="line" />
 				<div className="line" />
 				<div className="line" />
 			</div>
 			<ul className={"nav-links " + openClass}>
+				{" "}
 				<li className={fadeClass}>
-					<a href="#">About</a>
+					<a href="#">Tienda</a>
 				</li>
 				<li className={fadeClass}>
-					<a href="#">Contact</a>
+					<a href="#">Iniciar sesión / inscribirse</a>
 				</li>
 				<li className={fadeClass}>
-					<a href="#">Échele miel</a>
+					<a href="#">Blog</a>
+				</li>
+				<li className={fadeClass}>
+					<a href="#">Contáctenos</a>
 				</li>
 			</ul>
 		</nav>

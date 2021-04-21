@@ -35,6 +35,9 @@ export const Navbar = () => {
 				<li className={fadeClass}>
 					<a href="#">Contáctenos</a>
 				</li>
+				<Link to="/CreateProfile">
+					<span className="navbar-brand mb-0 h1">Create Profile</span>
+				</Link>
 			</ul>
 		</nav>
 	);

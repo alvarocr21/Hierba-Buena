@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
-import "../../../styles/home.scss";
+import "../../../styles/_home.scss";
 
 export const CreateProfile = () => {
 	const { store, actions } = useContext(Context);

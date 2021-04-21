@@ -14,16 +14,16 @@ export const CreateProfile = () => {
 						<input type="email" className="form-control" id="inputEmail4" />
 					</div>
 					<div className="form-group col-md-6">
-						<label>Contraseña</label>
+						<label>Correo electrónico</label>
 						<input type="password" className="form-control" id="inputPassword4" />
 					</div>
 				</div>
 				<div className="form-group">
-					<label>Dirección</label>
+					<label>Teléfono</label>
 					<input type="text" className="form-control" id="inputAddress" placeholder="" />
 				</div>
 				<div className="form-group">
-					<label>Dirección 2</label>
+					<label>Dirección</label>
 					<input type="text" className="form-control" id="inputAddress2" placeholder="" />
 				</div>
 				<div className="form-row">
@@ -35,7 +35,7 @@ export const CreateProfile = () => {
 						</select>
 					</div>
 					<div className="form-group col-md-4">
-						<label>Canton</label>
+						<label>Cantón</label>
 						<select id="inputState" className="form-control">
 							<option selected>Escoger...</option>
 							<option>...</option>
@@ -54,7 +54,7 @@ export const CreateProfile = () => {
 					</div>
 				</div>
 				<button type="submit" className="btn btn-primary">
-					Inciar Sesion
+					Crear Perfil
 				</button>
 			</form>
 		</div>

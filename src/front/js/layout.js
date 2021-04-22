@@ -4,6 +4,7 @@ import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
 import { CreateProfile } from "./pages/profiles/createProfile";
+import { Profile } from "./pages/profiles/profile";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
@@ -33,6 +34,9 @@ const Layout = () => {
 							<Single />
 						</Route>
 						<Route exact path="/CreateProfile">
+							<CreateProfile />
+						</Route>
+						<Route exact path="/Profile">
 							<CreateProfile />
 						</Route>
 						<Route>

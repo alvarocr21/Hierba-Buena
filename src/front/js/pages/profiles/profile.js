@@ -1,62 +1,26 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
-
-export const CreateProfile = () => {
+export const Profile = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="text-center mt-5">
-			<form>
-				<div className="form-row">
-					<div className="form-group col-md-6">
-						<label>Nombre Completo</label>
-						<input type="email" className="form-control" id="inputEmail4" />
-					</div>
-					<div className="form-group col-md-6">
-						<label>Correo electrónico</label>
-						<input type="password" className="form-control" id="inputPassword4" />
-					</div>
-				</div>
-				<div className="form-group">
-					<label>Teléfono</label>
-					<input type="text" className="form-control" id="inputAddress" placeholder="" />
-				</div>
-				<div className="form-group">
-					<label>Dirección</label>
-					<input type="text" className="form-control" id="inputAddress2" placeholder="" />
-				</div>
-				<div className="form-row">
-					<div className="form-group col-md-4">
-						<label>Provincia</label>
-						<select id="inputState" className="form-control">
-							<option selected>Escoger...</option>
-							<option>...</option>
-						</select>
-					</div>
-					<div className="form-group col-md-4">
-						<label>Cantón</label>
-						<select id="inputState" className="form-control">
-							<option selected>Escoger...</option>
-							<option>...</option>
-						</select>
-					</div>
-					<div className="form-group col-md-4">
-						<label>Distrito</label>
-						<select id="inputState" className="form-control">
-							<option selected>Escoger...</option>
-							<option>...</option>
-						</select>
-					</div>
-					<div className="form-group col-md-2">
-						<label>Codigo Postal</label>
-						<input type="text" className="form-control" id="inputZip" />
-					</div>
-				</div>
-				<button type="submit" className="btn btn-primary">
-					Crear Perfil
-				</button>
-			</form>
+		<div className="card">
+			<img
+				src="https://www.elmundo.cr/wp-content/uploads/2020/02/2020-01-15-11.39.43-1024x768.jpg"
+				className="card-img-top"
+				alt="..."
+			/>
+			<div className="card-body">
+				<h5 className="card-title">Card title</h5>
+				<p className="card-text">Los productos producidos en mi finca son 100% organicos</p>
+			</div>
+			<ul className="list-group list-group-flush">
+				<li className="list-group-item">Nombre</li>
+				<li className="list-group-item">correo</li>
+				<li className="list-group-item">telefono</li>
+				<li className="list-group-item">ubicacion</li>
+			</ul>
 		</div>
 	);
 };

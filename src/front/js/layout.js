@@ -36,8 +36,8 @@ const Layout = () => {
 						<Route exact path="/CreateProfile">
 							<CreateProfile />
 						</Route>
-						<Route exact path="/Profile">
-							<CreateProfile />
+						<Route exact path="/profile">
+							<Profile />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

@@ -24,7 +24,9 @@ export const Navbar = () => {
 			<ul className={"nav-links " + openClass}>
 				{" "}
 				<li className={fadeClass}>
-					<a href="#">Tienda</a>
+					<Link to="/Products">
+						<span className="navbar-brand mb-0 h1">Tienda</span>
+					</Link>
 				</li>
 				<li className={fadeClass}>
 					<a href="#">Iniciar sesión / inscribirse</a>

@@ -10,7 +10,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
-    perfil = db.relationship('perfil', lazy=True)
+    perfil = db.relationship('Perfil', lazy=True)
 
     def __repr__(self):
         return '<User %r>' % self.email
@@ -31,8 +31,8 @@ class Provincia(db.Model):
     __tablename__ = 'provincia'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=True, nullable=False)
-    canton = db.relationship('canton', lazy=True)
-    perfil = db.relationship('perfil', lazy=True)
+    canton = db.relationship('Canton', lazy=True)
+    perfil = db.relationship('Perfil', lazy=True)
 
     def __repr__(self):
         return '<Name %r>' % self.name
@@ -51,8 +51,8 @@ class Canton(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_provincia = db.Column(db.Integer,db.ForeignKey("provincia.id"))
     name = db.Column(db.String(20), unique=False, nullable=False)
-    distrito = db.relationship('distrito', lazy=True)
-    perfil = db.relationship('perfil', lazy=True)
+    distrito = db.relationship('Distrito', lazy=True)
+    perfil = db.relationship('Perfil', lazy=True)
     def __repr__(self):
         return '<Name %r>' % self.name
 
@@ -71,7 +71,7 @@ class Distrito(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_canton = db.Column(db.Integer,db.ForeignKey("canton.id"))
     name = db.Column(db.String(20), unique=False, nullable=False)
-    perfil = db.relationship('perfil', lazy=True)
+    perfil = db.relationship('Perfil', lazy=True)
     def __repr__(self):
         return '<Name %r>' % self.name
 
@@ -96,7 +96,7 @@ class Perfil(db.Model):
     coberturaKm = db.Column(db.Numeric,unique=False, nullable=False)
     foto_perfil = db.Column(db.String(255), unique=False, nullable=False)
     coordenadas = db.Column(db.String(255), unique=False, nullable=False)
-    perfil_producto = db.relationship('perfil_producto', lazy=True)
+    perfil_producto = db.relationship('Perfil_Producto', lazy=True)
 
     def __repr__(self):
         return '<Id %r>' % self.id
@@ -122,7 +122,7 @@ class Producto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=False, nullable=False)
     photo = db.Column(db.String(255), unique=False, nullable=False)
-    perfil_producto = db.relationship('perfil_producto', lazy=True)
+    perfil_producto = db.relationship('Perfil_Producto', lazy=True)
 
     def __repr__(self):
         return '<Name %r>' % self.name
@@ -142,7 +142,7 @@ class Producto(db.Model):
 class Perfil_Producto(db.Model):
     __tablename__ = 'perfil_producto'
     id = db.Column(db.Integer, primary_key=True)
-    id_perfil = db.Column(db.Integer,db.ForeignKey("user.id"))
+    id_perfil = db.Column(db.Integer,db.ForeignKey("perfil.id"))
     id_producto = db.Column(db.Integer,db.ForeignKey("producto.id"))
     price = db.Column(db.Numeric,unique=False, nullable=False)
     detalle = db.Column(db.String(255), unique=False, nullable=False)

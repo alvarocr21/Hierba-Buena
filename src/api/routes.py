@@ -36,7 +36,7 @@ def get_user(user_id):
     result = user.serialize()
     return jsonify(result), 200
 
-@app.route('/user', methods=['POST'])
+@api.route('/user', methods=['POST'])
 def add_user():
     request_body = request.get_json()
     user = User(Name=request_body["Name"],Lastname=request_body["Lastname"],email=request_body["email"],password=request_body["password"],is_active=request_body["is_active"])

@@ -15,8 +15,23 @@ export const PerfilProducts = () => {
 				/>
 
 				<div className="card-body">
-					<h5 className="card-title">Agricultor</h5>
-					<p className="card-text">Tomate Primera Calidad</p>
+					<h5 className="card-title">El Tomate</h5>
+					<p className="card-text">
+						Los tomates son ricos en vitamina C, un tomate promedio (120 g) contiene aproximadamente 23 mg.
+						de esta vitamina, además están llenos de potasio, fibra y de vitamina A
+					</p>
+					<h5 className="card-title">Agricultor: Alvaro Solano</h5>
+					<img
+						src="https://www.ucr.ac.cr/medios/fotos/2019/rs203336_dsc_6793-wed5cdb43692e4dc.jpg"
+						className="card-img-top"
+						alt="..."
+					/>
+					<p className="card-text">
+						Alvaro Solano es un Agricultor de la zona de cartago, posee 50 hectareas de diferentes cultivos
+						de productos agropecuarios
+					</p>
+
+					<h5 className="card-title">Precio: ¢1500 Kilo</h5>
 
 					<a href="#" className="btn btn-success float-right ">
 						Comprar

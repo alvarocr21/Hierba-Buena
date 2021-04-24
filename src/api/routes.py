@@ -38,7 +38,6 @@ def get_user(user_id):
     result = user.serialize()
     return jsonify(result), 200
 
-#almacenar un usuario
 @api.route('/user', methods=['POST'])
 def add_user():
 

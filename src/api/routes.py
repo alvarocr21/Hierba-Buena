@@ -6,7 +6,7 @@ from api.models import db, User, Provincia, Canton, Distrito,Perfil,Producto,Per
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 import re
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 api = Blueprint('api', __name__)
 CORS(api)
@@ -59,6 +59,7 @@ def add_user():
     if email_validate == False:
         raise APIException('La estructura del email no es la correcta', status_code=400) 
 
+  
 
     user = User(name=request_body["name"],lastname=request_body["lastname"],email=request_body["email"],password=__create_password(User,request_body["password"]),is_active=request_body["is_active"])
     db.session.add(user)
@@ -66,7 +67,28 @@ def add_user():
    
     return jsonify({"Respuesta":"Los datos se almacenaron satisfactoriamente"}), 200
 
+@api.route('/login', methods=['POST'])
+def login():
+  #Validando password usuario
+    request_body = request.get_json()
 
+    if 'email' not in request_body:
+        raise APIException('Se debe especificar un email', status_code=400)
+    elif 'password' not in request_body:
+        raise APIException('Se debe especificar un password', status_code=400)
+
+    user = User.query.filter_by(email = request_body["email"]).first()
+    result = user.serialize()
+    #print(result["password"])
+    #return jsonify(result), 200
+
+    if user is not None:
+        if verify_password(result["password"],request_body["password"]):
+            return jsonify({"Respuesta":"Bienvenido "+result["name"]+" "+ result["lastname"]}), 200
+        else:
+            return jsonify({"Respuesta":"las credenciales son incorrectas"}), 400
+    else:
+        return jsonify({"Respuesta":"las credenciales son incorrectas"}), 400
 
 #Funciones utiles
 
@@ -77,6 +99,9 @@ def email_valid(email):
 
 def __create_password(User,password):
     return generate_password_hash(password)
+
+def verify_password(BDpassword,password):
+    return check_password_hash(BDpassword,password)
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():

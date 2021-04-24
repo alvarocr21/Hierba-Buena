@@ -8,11 +8,13 @@ export const PerfilProducts = () => {
 	return (
 		<div>
 			<div className="card mb-2">
-				<img
-					src="https://s1.eestatic.com/2020/03/17/ciencia/nutricion/vegetales-transgenicos-tomate_475465019_148545151_1024x576.jpg"
-					className="card-img-top"
-					alt="..."
-				/>
+				<div>
+					<img
+						src="https://s1.eestatic.com/2020/03/17/ciencia/nutricion/vegetales-transgenicos-tomate_475465019_148545151_1024x576.jpg"
+						className="card-img-top"
+						alt="..."
+					/>
+				</div>
 
 				<div className="card-body">
 					<h5 className="card-title">El Tomate</h5>

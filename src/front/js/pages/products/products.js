@@ -32,7 +32,7 @@ export const Products = () => {
 					<h5 className="card-title">Tomate</h5>
 					<p className="card-text">Tomate Primera Calidad</p>
 
-					<Link to="/PerfilProducts">
+					<Link to="/BuyProducts">
 						<a className="btn btn-success float-right ">Comprar</a>
 					</Link>
 				</div>
@@ -48,7 +48,7 @@ export const Products = () => {
 				<div className="card-body">
 					<h5 className="card-title">Chayote</h5>
 					<p className="card-text">Chayote Cartago</p>
-					<Link to="/PerfilProducts">
+					<Link to="/BuyProducts">
 						<a className="btn btn-success float-right ">Comprar</a>
 					</Link>
 				</div>
@@ -64,7 +64,7 @@ export const Products = () => {
 				<div className="card-body">
 					<h5 className="card-title">Fresas</h5>
 					<p className="card-text">Fresas de las faldas del Volcan Poas</p>
-					<Link to="/PerfilProducts">
+					<Link to="/BuyProducts">
 						<a className="btn btn-success float-right ">Comprar</a>
 					</Link>
 				</div>

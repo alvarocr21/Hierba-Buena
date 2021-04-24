@@ -8,6 +8,7 @@ import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 import { Products } from "./pages/products/products";
 import { PerfilProducts } from "./pages/products/perfilProducts";
+import { BuyProducts } from "./pages/products/buyProducts";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -38,6 +39,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/PerfilProducts">
 							<PerfilProducts />
+						</Route>
+						<Route exact path="/BuyProducts">
+							<BuyProducts />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

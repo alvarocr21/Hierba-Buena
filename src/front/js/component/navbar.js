@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../img/peppermint.jpg";
+import logo from "../../img/landingPage/logo.png";
 export const Navbar = () => {
 	const [menuDisplay, setMenuDisplay] = useState(false);
 	let fadeClass = undefined;
@@ -16,6 +16,12 @@ export const Navbar = () => {
 
 	return (
 		<nav className="fixed-top">
+			<div>
+				<Link to="/">
+					{" "}
+					<img id="logo" src={logo} />
+				</Link>
+			</div>
 			<div className="hamburger" onClick={() => setMenuDisplay(!menuDisplay)}>
 				<div className="line" />
 				<div className="line" />

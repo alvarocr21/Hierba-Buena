@@ -22,11 +22,21 @@ class User(db.Model):
             "name": self.name,
             "lastname": self.lastname,
             "email": self.email,
-            "password": self.password,
             "is_active": self.is_active,
             "perfil": list(map(lambda x: x.serialize(), self.perfil)),
             # do not serialize the password, its a security breach
             #probando
+        }
+
+    def serialize_valida(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "lastname": self.lastname,
+            "email": self.email,
+            "password": self.password,
+            # do not serialize the password, its a security breach
+            
         }
 
 class Provincia(db.Model):

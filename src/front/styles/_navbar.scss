@@ -1,7 +1,9 @@
 @import "_colors.scss";
+@import url('https://fonts.googleapis.com/css2?family=Delius&family=Love+Ya+Like+A+Sister&display=swap');
 
-
-
+body{
+    font-family: 'Delius',serif;
+}
 
 nav {
   height: 10vh;
@@ -22,6 +24,19 @@ nav {
   color: $white;
   text-decoration: none;
   font-size: 16px;
+
+}
+
+#titulo-navbar{
+    font-family: 'Love Ya Like A Sister',serif;
+    color: $white;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+
+font-size: xx-large;
 }
 
 .landing {

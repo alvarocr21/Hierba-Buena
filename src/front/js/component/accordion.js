@@ -20,7 +20,7 @@ class Accordion extends Component {
 					<span className="accordion-item__icon" />
 				</div>
 				<div className="accordion-item__inner">
-					<div className="accordion-item__content">
+					<div className="accordion-item__content p-4">
 						<p className="accordion-item__paragraph">
 							La oportunidad de comprar alimentos cultivados localmente es invaluable a medida que aumenta
 							la demanda. Los consumidores se benefician de opciones de alimentos más saludables, y los

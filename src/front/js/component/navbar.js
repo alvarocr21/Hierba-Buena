@@ -19,7 +19,9 @@ export const Navbar = () => {
 			<div>
 				<Link to="/">
 					{" "}
-					<img id="logo" src={logo} />
+					<span id="titulo-navbar" className="pl-4">
+						HierbaBuena
+					</span>
 				</Link>
 			</div>
 			<div className="hamburger" onClick={() => setMenuDisplay(!menuDisplay)}>

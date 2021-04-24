@@ -24,16 +24,30 @@ export const Navbar = () => {
 			<ul className={"nav-links " + openClass}>
 				{" "}
 				<li className={fadeClass}>
-					<a href="#">Tienda</a>
+					<Link to="/Products" onClick={() => setMenuDisplay(!menuDisplay)}>
+						<span className="navbar-brand mb-0 h1">Tienda</span>
+					</Link>
 				</li>
 				<li className={fadeClass}>
-					<a href="#">Iniciar sesión / inscribirse</a>
+					<Link to="/Login">
+						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
+							Iniciar sesión / inscribirse
+						</span>
+					</Link>
 				</li>
 				<li className={fadeClass}>
-					<a href="#">Blog</a>
+					<Link to="/Blog">
+						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
+							Blog
+						</span>
+					</Link>
 				</li>
 				<li className={fadeClass}>
-					<a href="#">Contáctenos</a>
+					<Link to="/ContactUs">
+						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
+							Contáctenos
+						</span>
+					</Link>
 				</li>
 			</ul>
 		</nav>

@@ -5,6 +5,7 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
 import { CreateProfile } from "./pages/profiles/createProfile";
 import { Profile } from "./pages/profiles/profile";
+import { Suppliers } from "./pages/Suppliers/suppliers";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
@@ -38,6 +39,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/profile">
 							<Profile />
+						</Route>
+						<Route exact path="/suppliers">
+							<Suppliers />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

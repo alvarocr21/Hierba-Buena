@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../img/landingPage/logo2.png";
+import logo from "../../img/landingPage/Hierbabuena01.png";
 export const Navbar = () => {
 	const [menuDisplay, setMenuDisplay] = useState(false);
 	let fadeClass = undefined;
@@ -21,7 +21,6 @@ export const Navbar = () => {
 					{" "}
 					<span id="titulo-navbar" className="pl-1">
 						<img id="logo" src={logo} />
-						HierbaBuena
 					</span>
 				</Link>
 			</div>

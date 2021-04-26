@@ -1,16 +1,17 @@
 @import "_colors.scss";
 
 .btn-success {
-  background-color: $green;
+  background-color: $darkgreen;
+  border-color:$darkgreen;
 }
 
  .btn-success:hover, .btn-success:active:focus{
-  background-color: $green;
+  background-color: $darkgreen;
  }
 
  .link {
   color:$green;
 }
 .link:hover, .btn-success:active:focus {
-   color: $orange
+   color: $darkgreen
 }

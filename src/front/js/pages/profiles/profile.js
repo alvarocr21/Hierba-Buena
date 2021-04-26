@@ -20,6 +20,7 @@ export const Profile = () => {
 				<li className="list-group-item">correo</li>
 				<li className="list-group-item">telefono</li>
 				<li className="list-group-item">ubicacion</li>
+				<li className="list-group-item">cobertura en km</li>
 			</ul>
 		</div>
 	);

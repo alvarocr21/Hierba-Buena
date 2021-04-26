@@ -69,8 +69,28 @@ export const CreateProfile = () => {
 								</select>
 							</div>
 							<div className="form-group col-md-2">
-								<label>Codigo Postal</label>
+								<label>Cobertura en km</label>
 								<input type="text" className="form-control" id="inputZip" />
+							</div>
+							<div className="input-group my-3">
+								<div className="input-group-prepend">
+									<span className="input-group-text" id="inputGroupFileAddon01">
+										Upload
+									</span>
+								</div>
+								<div className="custom-file">
+									<input
+										type="file"
+										className="custom-file-input"
+										id="inputGroupFile01"
+										aria-describedby="inputGroupFileAddon01"
+									/>
+									<label className="custom-file-label">Choose file</label>
+								</div>
+							</div>
+							<div className="form-group">
+								<label>Example textarea</label>
+								<textarea className="form-control" id="exampleFormControlTextarea1" rows="3" />
 							</div>
 						</div>
 

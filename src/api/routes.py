@@ -231,7 +231,7 @@ def get_cantons():
 
     return json_respuestas(all_canton,200,"data")
 
-#Obtener una canton
+#Obtener un canton
 @api.route('/canton/<int:canton_id>', methods=['GET'])
 def get_canton(canton_id):
    
@@ -290,6 +290,96 @@ def update_canton(canton_id):
    
     return json_respuestas("Los datos se almacenaron satisfactoriamente",200) 
 ################
+################
+# obtener todas los distritos
+@api.route('/distrito', methods=['GET'])
+def get_distritos():
+    
+    result = Distrito.query.all()
+
+    # map the results and your list of people  inside of the all_user variable
+    all_distrito= list(map(lambda x: x.serialize(), result))
+
+    return json_respuestas(all_distrito,200,"data")
+
+#Obtener un distrito
+@api.route('/distrito/<int:distrito_id>', methods=['GET'])
+def get_distrito(distrito_id):
+   
+    distrito = Distrito.query.get(distrito_id)
+    #Existe distrito
+    if distrito is None:
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+
+    result = distrito.serialize()
+
+    return json_respuestas(result,200,"data")
+
+#registrar un distrito
+@api.route('/distrito', methods=['POST'])
+def add_distrito():
+
+    request_body = request.get_json()
+    
+    #Validando existencia de campos importantes
+    if 'name' not in request_body:
+        return json_respuestas('Se debe especificar un Nombre', 400)
+    if 'id_canton' not in request_body:
+        return json_respuestas('Se debe especificar el canton al que pertenece', 400)
+    
+ 
+    #Almacenando el distrito
+    distrito = Distrito(name=request_body["name"],id_canton=request_body["id_canton"])
+    db.session.add(distrito)
+    db.session.commit()
+   
+    return json_respuestas("Los datos se almacenaron satisfactoriamente",200) 
+
+#actualizar una distrito
+@api.route('/distrito/<int:distrito_id>', methods=['PUT'])
+def update_distrito(distrito_id):
+
+    request_body = request.get_json()
+
+    distrito = Distrito.query.get(distrito_id)
+    if distrito is None:
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+  
+      
+    #Validando existencia de campos importantes
+    if 'name' in request_body:
+        distrito.name = request_body["name"]
+    if 'id_canton' in request_body:
+        distrito.id_canton = request_body["id_canton"]
+  
+    db.session.commit()
+   
+    return json_respuestas("Los datos se almacenaron satisfactoriamente",200) 
+################
+
+#Obtener todos los perfiles
+@api.route('/perfil',methods=['GET'])
+def get_perfiles():
+       
+    result = Perfil.query.all()
+
+    # map the results and your list of people  inside of the all_user variable
+    all_perfil= list(map(lambda x: x.serialize(), result))
+
+    return json_respuestas(all_perfil,200,"data")
+
+#Obtener un perfil
+@api.route('/perfil/<int:perfil_id>', methods=['GET'])
+def get_perfil(perfil_id):
+   
+    perfil = Perfil.query.get(perfil_id)
+    #Existe distrito
+    if perfil is None:
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+
+    result = perfil.serialize()
+
+    return json_respuestas(result,200,"data")
 
 #Funciones utiles
 

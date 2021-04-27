@@ -77,9 +77,6 @@ def update_user(user_id):
 
     if user is None:
         return json_respuestas('Este recurso no se encuentra en base de datos', 404)
-
-   
-    
 #Actualizando campos ingresados
     if 'name' in request_body:
         user.name = request_body["name"]
@@ -380,6 +377,40 @@ def get_perfil(perfil_id):
     result = perfil.serialize()
 
     return json_respuestas(result,200,"data")
+
+
+#registrar un perfil
+@api.route('/perfil', methods=['POST'])
+def add_perfil():
+
+    request_body = request.get_json()
+    
+    #Validando existencia de campos importantes
+    if 'id_user' not in request_body or request_body["id_user"]=="":
+        return json_respuestas('Se debe especificar un usuario', 400)
+    elif 'id_provincia' not in request_body or request_body["id_provincia"]=="":
+        return json_respuestas('Se debe especificar una provincia', 400)
+    elif 'id_canton' not in request_body or request_body["id_canton"]=="":
+        return json_respuestas('Se debe especificar un cantón', 400)
+    elif 'id_distrito' not in request_body or request_body["id_distrito"]=="":
+        return json_respuestas('Se debe especificar un distrito', 400)
+    elif 'phone' not in request_body or request_body["phone"]=="":
+        return json_respuestas('Se debe especificar un telefono', 400)
+    elif 'coberturaKm' not in request_body or request_body["coberturaKm"]=="":
+        return json_respuestas('Se debe especificar una cobertura en Kilometros', 400)
+    elif 'foto_perfil' not in request_body or request_body["foto_perfil"]=="":
+        return json_respuestas('Se debe especificar una foto de perfil', 400)
+    elif 'coordenadas' not in request_body or request_body["coordenadas"]=="":
+        return json_respuestas('Se debe especificar una ubicación', 400)
+    
+  
+    #Almacenando el usuario
+    perfil = Perfil(id_user=request_body["id_user"],id_provincia=request_body["id_provincia"],id_canton=request_body["id_canton"],id_distrito=request_body["id_distrito"],phone=request_body["phone"],coberturaKm=request_body["coberturaKm"],foto_perfil=request_body["foto_perfil"],coordenadas=request_body["coordenadas"])
+    db.session.add(perfil)
+    db.session.commit()
+   
+    return json_respuestas("Los datos se almacenaron satisfactoriamente",200) 
+
 
 #Funciones utiles
 

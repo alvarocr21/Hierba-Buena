@@ -76,6 +76,7 @@ class Canton(db.Model):
             # do not serialize the password, its a security breach
             #probando
         }
+
 class Distrito(db.Model):
     __tablename__ = 'distrito'
     id = db.Column(db.Integer, primary_key=True)
@@ -119,7 +120,7 @@ class Perfil(db.Model):
             "id_canton": self.id_canton,
             "id_distrito": self.id_distrito,
             "phone": self.phone,
-            "coberturaKm": self.coberturaKm,
+            "coberturaKm": str(self.coberturaKm),
             "foto_perfil": self.foto_perfil,
             "coordenadas": self.coordenadas,
             "perfil_producto": list(map(lambda x: x.serialize(), self.perfil_producto)),

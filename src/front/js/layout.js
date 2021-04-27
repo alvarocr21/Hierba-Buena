@@ -9,6 +9,7 @@ import injectContext from "./store/appContext";
 import { Login } from "./pages/login/login";
 import { Register } from "./pages/login/register";
 import { RecoverPassword } from "./pages/login/recoverPassword";
+import { ContactUs } from "./pages/contactUs/contactUs";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -36,6 +37,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/RecoverPassword">
 							<RecoverPassword />
+						</Route>
+						<Route exact path="/ContactUs">
+							<ContactUs />
 						</Route>
 
 						<Route exact path="/demo">

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
+import { Link } from "react-router-dom";
 export const Profile = () => {
 	const { store, actions } = useContext(Context);
 
@@ -22,6 +23,11 @@ export const Profile = () => {
 				<li className="list-group-item">ubicacion</li>
 				<li className="list-group-item">cobertura en km</li>
 			</ul>
+			<Link to="/vendors">
+				<button type="submit" className="btn btn-primary">
+					Link
+				</button>
+			</Link>
 		</div>
 	);
 };

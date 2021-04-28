@@ -77,7 +77,7 @@ def update_user(user_id):
 
     if user is None:
         return json_respuestas('Este recurso no se encuentra en base de datos', 404)
-#Actualizando campos ingresados
+    #Actualizando campos ingresados
     if 'name' in request_body:
         user.name = request_body["name"]
     
@@ -411,6 +411,104 @@ def add_perfil():
    
     return json_respuestas("Los datos se almacenaron satisfactoriamente",200) 
 
+#actualizar un perfil
+@api.route('/perfil/<int:perfil_id>', methods=['PUT'])
+def update_perfil(perfil_id):
+    request_body = request.get_json()
+
+    perfil = Perfil.query.get(perfil_id)
+    if perfil is None:
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+  
+      
+    #Validando existencia de campos importantes
+    if 'id_user' in request_body:
+        perfil.id_user = request_body["id_user"]
+    if 'id_provincia' in request_body:
+        perfil.id_provincia = request_body["id_provincia"]
+    if 'id_canton' in request_body:
+        perfil.id_canton = request_body["id_canton"]
+    if 'id_distrito' in request_body:
+        perfil.id_distrito = request_body["id_distrito"]
+    if 'phone' in request_body:
+        perfil.phone = request_body["phone"]
+    if 'coberturaKm' in request_body:
+        perfil.coberturaKm = request_body["coberturaKm"]
+    if 'foto_perfil' in request_body:
+        perfil.foto_perfil = request_body["foto_perfil"]
+    if 'coordenadas' in request_body:
+        perfil.coordenadas = request_body["coordenadas"]
+  
+    db.session.commit()
+    
+    return json_respuestas("Los datos se almacenaron satisfactoriamente",200) 
+###################
+
+##################
+#Obtener todos los productos
+@api.route('/producto',methods=['GET'])
+def get_productos():
+       
+    result = Producto.query.all()
+
+    # map the results and your list of people  inside of the all_user variable
+    all_producto= list(map(lambda x: x.serialize(), result))
+
+    return json_respuestas(all_producto,200,"data")
+
+#Obtener un producto
+@api.route('/producto/<int:producto_id>', methods=['GET'])
+def get_producto(producto_id):
+   
+    producto = Producto.query.get(producto_id)
+    #Existe distrito
+    if producto is None:
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+
+    result = producto.serialize()
+
+    return json_respuestas(result,200,"data")
+
+
+#registrar un producto
+@api.route('/producto', methods=['POST'])
+def add_producto():
+
+    request_body = request.get_json()
+    
+    #Validando existencia de campos importantes
+    if 'name' not in request_body or request_body["name"]=="":
+        return json_respuestas('Se debe especificar un nombre', 400)
+    elif 'photo' not in request_body or request_body["photo"]=="":
+        return json_respuestas('Se debe agregar una foto', 400)
+    
+  
+    #Almacenando el usuario
+    producto = Producto(name=request_body["name"],photo=request_body["photo"])
+    db.session.add(producto)
+    db.session.commit()
+   
+    return json_respuestas("Los datos se almacenaron satisfactoriamente",200) 
+
+#actualizar un producto
+@api.route('/producto/<int:producto_id>', methods=['PUT'])
+def update_producto(producto_id):
+    request_body = request.get_json()
+
+    producto = Producto.query.get(producto_id)
+    if producto is None:
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+
+    #Validando existencia de campos importantes
+    if 'name' in request_body:
+         producto.name = request_body["name"]
+        
+    if 'photo' in request_body:
+         producto.photo = request_body["photo"]
+  
+    db.session.commit()
+   
+    return json_respuestas("Los datos se actualizaron satisfactoriamente",200) 
 
 #Funciones utiles
 
@@ -437,11 +535,3 @@ def json_respuestas(mensaje,codigo,tipo="mensaje"):
 
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend"
-    }
-
-    return jsonify(response_body), 200

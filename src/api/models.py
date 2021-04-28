@@ -143,7 +143,6 @@ class Producto(db.Model):
             "id": self.id,
             "name": self.name,
             "photo": self.photo,
-            "price": self.price,
             "perfil_producto": list(map(lambda x: x.serialize(), self.perfil_producto)),
             # do not serialize the password, its a security breach
             

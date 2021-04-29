@@ -66,6 +66,7 @@ vertical-align: baseline;
 
 
 
+
 }
 
 @media screen and (max-width: 768px) {
@@ -98,6 +99,7 @@ vertical-align: baseline;
     -webkit-clip-path: circle(100px at 90% -10%);
     transition: all 1s ease-out;
     pointer-events: none;
+    padding: 12vh 0vh 30vh 0vh;
   }
   .nav-links.open {
     clip-path: circle(1100px at 90% -10%);
@@ -129,4 +131,10 @@ vertical-align: baseline;
   li.fade {
     opacity: 1 !important;
   }
+
+  .icon{
+    height: 4vh;
+    padding-left: 2vh;
+}
+
 }

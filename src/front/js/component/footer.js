@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => (
 	<footer className="footer mt-auto py-3 text-center">
+		<p>
+			&#169; {new Date().getFullYear() + "       "}
+			<Link to="/Team" className="link">
+				Equipo HierbaBuena
+			</Link>{" "}
+		</p>
 		<div className="row justify-content-center footer-row">
 			<a href="#">
 				<i className="fab fa-facebook" />
@@ -24,11 +30,5 @@ export const Footer = () => (
 				<i className="fab fa-linkedin" />
 			</a>
 		</div>
-		<p>
-			&#169; {new Date().getFullYear() + "       "}
-			<Link to="/Team" className="link">
-				Equipo HierbaBuena
-			</Link>{" "}
-		</p>
 	</footer>
 );

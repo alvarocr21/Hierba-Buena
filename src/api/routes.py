@@ -612,6 +612,7 @@ def __verify_password(BDpassword,password):
 #Valida números
 def esNumero(valor):
     return valor.isdigit() 
+    
 #Mensajes de respuesta
 def json_respuestas(mensaje,codigo,tipo="mensaje"):
 

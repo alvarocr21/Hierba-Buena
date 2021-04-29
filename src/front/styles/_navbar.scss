@@ -1,13 +1,15 @@
 @import "_colors.scss";
 @import url('https://fonts.googleapis.com/css2?family=Delius&family=Love+Ya+Like+A+Sister&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 body{
-    font-family: 'Delius',serif;
+    font-family: 'Open Sans',serif;
 }
 
 nav {
   height: 10vh;
-  background: $green;
+  background: $darkgreen;
 }
 
 .nav-links {
@@ -28,7 +30,7 @@ nav {
 }
 
 #titulo-navbar{
-    font-family: 'Love Ya Like A Sister',serif;
+    font-family: 'Open Sans',serif;
     color: $white;
   margin: 0;
   position: absolute;
@@ -57,8 +59,19 @@ font-size: xx-large;
     cursor: pointer;
 padding-right: 2vh;
     z-index: 2;
-height: 8vh;
+height: 5vh;
+padding-left: 2.5vh;
+vertical-align: baseline;
 
+
+
+
+
+}
+
+  .icon{
+    height: 4vh;
+    padding-left: 2vh;
 }
 
 @media screen and (max-width: 768px) {
@@ -83,18 +96,19 @@ height: 8vh;
 
   .nav-links {
     position: fixed;
-    background: $green;
-    height: 100vh;
+    background: $darkgreen;
+    height: 100%;
     width: 100%;
     flex-direction: column;
-    clip-path: circle(100px at 130% -10%);
-    -webkit-clip-path: circle(100px at 130% -10%);
+    clip-path: circle(100px at 90% -10%);
+    -webkit-clip-path: circle(100px at 90% -10%);
     transition: all 1s ease-out;
     pointer-events: none;
+    padding: 12vh 0vh 12vh 0vh;
   }
   .nav-links.open {
-    clip-path: circle(1000px at 130% -10%);
-    -webkit-clip-path: circle(1000px at 130% -10%);
+    clip-path: circle(1100px at 90% -10%);
+    -webkit-clip-path: circle(1100px at 90% -10%);
     pointer-events: all;
   }
   .landing {
@@ -107,19 +121,25 @@ height: 8vh;
     font-size: 25px;
   }
   .nav-links li:nth-child(1) {
-    transition: all 0.5s ease 0.2s;
+    transition: all 0.5s ease 0.1s;
   }
   .nav-links li:nth-child(2) {
-    transition: all 0.5s ease 0.3s;
+    transition: all 0.5s ease 0.2s;
   }
   .nav-links li:nth-child(3) {
-    transition: all 0.5s ease 0.4s;
+    transition: all 0.5s ease 0.3s;
   }
   .nav-links li:nth-child(4) {
+    transition: all 0.5s ease 0.4s;
+  }
+    .nav-links li:nth-child(5) {
     transition: all 0.5s ease 0.5s;
   }
 
   li.fade {
     opacity: 1 !important;
   }
+
+
+
 }

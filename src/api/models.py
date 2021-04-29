@@ -165,7 +165,7 @@ class Perfil_Producto(db.Model):
             "id": self.id,
             "id_perfil": self.id_perfil,
             "id_producto": self.id_producto,
-            "price": self.price,
+            "price": str(self.price),
             "detalle": self.detalle,
             
             # do not serialize the password, its a security breach

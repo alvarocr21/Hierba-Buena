@@ -403,6 +403,8 @@ def add_perfil():
     elif 'coordenadas' not in request_body or request_body["coordenadas"]=="":
         return json_respuestas('Se debe especificar una ubicación', 400)
     
+    if esNumero(request_body["coberturaKm"])==False:
+        return json_respuestas('Solo se pueden digitar números en la cobertura Km', 400)
   
     #Almacenando el usuario
     perfil = Perfil(id_user=request_body["id_user"],id_provincia=request_body["id_provincia"],id_canton=request_body["id_canton"],id_distrito=request_body["id_distrito"],phone=request_body["phone"],coberturaKm=request_body["coberturaKm"],foto_perfil=request_body["foto_perfil"],coordenadas=request_body["coordenadas"])
@@ -439,6 +441,9 @@ def update_perfil(perfil_id):
     if 'coordenadas' in request_body:
         perfil.coordenadas = request_body["coordenadas"]
   
+    if esNumero(request_body["coberturaKm"])==False:
+        return json_respuestas('Solo se pueden digitar números en la cobertura Km', 400)
+
     db.session.commit()
     
     return json_respuestas("Los datos se almacenaron satisfactoriamente",200) 
@@ -508,7 +513,86 @@ def update_producto(producto_id):
   
     db.session.commit()
    
-    return json_respuestas("Los datos se actualizaron satisfactoriamente",200) 
+    return json_respuestas("Los datos se actualizaron satisfactoriamente",200)
+
+
+#Obtener todos los productos
+@api.route('/perfil_producto',methods=['GET'])
+def get_perfil_productos():
+       
+    result = Perfil_Producto.query.all()
+
+    # map the results and your list of people  inside of the all_user variable
+    all_perfil_producto= list(map(lambda x: x.serialize(), result))
+
+    return json_respuestas(all_perfil_producto,200,"data")
+
+#Obtener un producto
+@api.route('/perfil_producto/<int:perfil_producto_id>', methods=['GET'])
+def get_perfil_producto(perfil_producto_id):
+   
+    perfil_producto = Perfil_Producto.query.get(perfil_producto_id)
+    #Existe distrito
+    if perfil_producto is None:
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+
+    result = perfil_producto.serialize()
+
+    return json_respuestas(result,200,"data")
+
+#Ingresar un Producto_Perfil
+@api.route('/perfil_producto',methods=['POST'])
+def add_perfil_producto():
+    request_body = request.get_json()
+    
+    #Validando existencia de campos importantes
+    if 'id_perfil' not in request_body or request_body["id_perfil"]=="":
+        return json_respuestas('Se debe especificar un perfil', 400)
+    elif 'id_producto' not in request_body or request_body["id_producto"]=="":
+        return json_respuestas('Se debe agregar un producto', 400)
+    elif 'price' not in request_body or request_body["price"]=="":
+        return json_respuestas('Se debe agregar un precio', 400)
+    elif 'detalle' not in request_body or request_body["detalle"]=="":
+        return json_respuestas('Se debe agregar un detalle', 400)
+    
+    if esNumero(request_body["price"])==False:
+        return json_respuestas('Solo se pueden digitar números en el precio', 400)
+  
+    #Almacenando el Producto_Perfil
+    perfil_producto = Perfil_Producto(id_perfil=request_body["id_perfil"],id_producto=request_body["id_producto"],price=request_body["price"],detalle=request_body["detalle"])
+    db.session.add(perfil_producto)
+    db.session.commit()
+   
+    return json_respuestas("Los datos se almacenaron satisfactoriamente",200) 
+
+#Actualizar un Producto_Perfil
+@api.route('/perfil_producto/<int:perfil_producto_id>',methods=['PUT'])
+def update_perfil_producto(perfil_producto_id):
+    request_body = request.get_json()
+
+    producto_perfil = Perfil_Producto.query.get(perfil_producto_id)
+    if producto_perfil is None:
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+        
+    #Validando existencia de campos a actualizar
+    if 'id_perfil' in request_body:
+        producto_perfil.id_perfil = request_body["id_perfil"]
+    if 'id_producto' in request_body:
+        producto_perfil.id_producto = request_body["id_producto"]
+    if 'price' in request_body:
+        producto_perfil.price = request_body["price"]
+    if 'detalle' in request_body:
+        producto_perfil.detalle = request_body["detalle"]
+    
+    if esNumero(request_body["price"])==False:
+        return json_respuestas('Solo se pueden digitar números en el precio', 400)
+  
+    #Almacenando el usuario
+    perfil_producto = Perfil_Producto(id_perfil=request_body["id_perfil"],id_producto=request_body["id_producto"],price=request_body["price"],detalle=request_body["detalle"])
+    db.session.add(perfil_producto)
+    db.session.commit()
+   
+    return json_respuestas("Los datos se almacenaron satisfactoriamente",200)
 
 #Funciones utiles
 
@@ -525,6 +609,9 @@ def __create_password(User,password):
 def __verify_password(BDpassword,password):
     return check_password_hash(BDpassword,password)
 
+#Valida números
+def esNumero(valor):
+    return valor.isdigit() 
 #Mensajes de respuesta
 def json_respuestas(mensaje,codigo,tipo="mensaje"):
 

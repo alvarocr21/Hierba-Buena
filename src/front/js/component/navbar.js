@@ -51,6 +51,14 @@ export const Navbar = () => {
 					</Link>
 				</li>
 				<li className={fadeClass}>
+					<Link to="/Vendors">
+						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
+							Vendedores
+							<img className="icon" src="https://www.iconsdb.com/icons/preview/white/user-xxl.png" />
+						</span>
+					</Link>
+				</li>
+				<li className={fadeClass}>
 					<Link to="/Blog">
 						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
 							Blog

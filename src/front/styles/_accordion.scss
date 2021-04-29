@@ -1,5 +1,8 @@
 @import "_colors.scss";
 
+#accordionimg1{
+    width:100%;
+}
 
 .accordion-list {
   list-style: none;
@@ -87,7 +90,7 @@
   transition: opacity, transform;
   transition-delay: 0.5s;
   padding: 0 1.2rem 1.2rem;
-  background-color: $green;
+  background-color: $darkgreen;
 
 }
 

@@ -1,16 +1,44 @@
 @import "_colors.scss";
 
 .btn-success {
-  background-color: $green;
+  background-color: $darkgreen;
+  border-color:$darkgreen;
 }
 
  .btn-success:hover, .btn-success:active:focus{
-  background-color: $green;
+  background-color: $darkgreen;
  }
 
  .link {
   color:$green;
 }
 .link:hover, .btn-success:active:focus {
-   color: $orange
+   color: $darkgreen
+}
+
+.form-control{
+
+      -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+.form-control:focus{
+
+     box-shadow: 0 0 5px $green;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid $green;
+
+}
+
+
+
+.custom-control-label::after {
+    background-color: $green;
 }

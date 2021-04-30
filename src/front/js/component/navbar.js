@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/landingPage/Hierbabuena01.png";
+import shop from "../../img/navbar/shop-xxl.png";
+import login from "../../img/navbar/account-login-xxl.png";
+import user from "../../img/navbar/user-xxl.png";
+import note from "../../img/navbar/note-2-xxl.png";
+import contact from "../../img/navbar/business-contact-xxl.png";
 export const Navbar = () => {
 	const [menuDisplay, setMenuDisplay] = useState(false);
 	let fadeClass = undefined;
@@ -33,7 +38,7 @@ export const Navbar = () => {
 					<Link to="/Products" onClick={() => setMenuDisplay(!menuDisplay)}>
 						<span className="navbar-brand mb-0 h1">
 							Tienda
-							<img className="icon" src="https://www.iconsdb.com/icons/preview/white/shop-xxl.png" />
+							<img className="icon" src={shop} />
 						</span>
 					</Link>
 				</li>
@@ -41,10 +46,7 @@ export const Navbar = () => {
 					<Link to="/Login">
 						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
 							Iniciar sesión / Registrarse
-							<img
-								className="icon"
-								src="https://www.iconsdb.com/icons/preview/white/account-login-xxl.png"
-							/>
+							<img className="icon" src={login} />
 						</span>
 					</Link>
 				</li>
@@ -52,7 +54,7 @@ export const Navbar = () => {
 					<Link to="/Vendors">
 						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
 							Vendedores
-							<img className="icon" src="https://www.iconsdb.com/icons/preview/white/user-xxl.png" />
+							<img className="icon" src={user} />
 						</span>
 					</Link>
 				</li>
@@ -60,7 +62,7 @@ export const Navbar = () => {
 					<Link to="/Blog">
 						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
 							Blog
-							<img className="icon" src="https://www.iconsdb.com/icons/preview/white/note-2-xxl.png" />
+							<img className="icon" src={note} />
 						</span>
 					</Link>
 				</li>
@@ -68,16 +70,15 @@ export const Navbar = () => {
 					<Link to="/ContactUs">
 						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
 							Contáctenos
-							<img
-								className="icon"
-								src="https://www.iconsdb.com/icons/preview/white/business-contact-xxl.png"
-							/>
+							<img className="icon" src={contact} />
 						</span>
 					</Link>
 				</li>
-				<Link to="/CreateProfile">
-					<span className="navbar-brand mb-0 h1">Create Profile</span>
-				</Link>
+				<li className={fadeClass}>
+					<Link to="/CreateProfile">
+						<span className="navbar-brand mb-0 h1">Crear Perfil</span>
+					</Link>
+				</li>
 			</ul>
 		</nav>
 	);

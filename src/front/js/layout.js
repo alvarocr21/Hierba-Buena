@@ -9,7 +9,13 @@ import { Vendors } from "./pages/Vendors/vendors";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
-
+import { Login } from "./pages/login/login";
+import { Register } from "./pages/login/register";
+import { RecoverPassword } from "./pages/login/recoverPassword";
+import { ContactUs } from "./pages/contactUs/contactUs";
+import { BuyProducts } from "./pages/products/buyProducts";
+import { Products } from "./pages/products/products";
+import { PerfilProducts } from "./pages/products/perfilProducts";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
@@ -28,6 +34,19 @@ const Layout = () => {
 						<Route exact path="/">
 							<Home />
 						</Route>
+						<Route exact path="/Login">
+							<Login />
+						</Route>
+						<Route exact path="/Register">
+							<Register />
+						</Route>
+						<Route exact path="/RecoverPassword">
+							<RecoverPassword />
+						</Route>
+						<Route exact path="/ContactUs">
+							<ContactUs />
+						</Route>
+
 						<Route exact path="/demo">
 							<Demo />
 						</Route>
@@ -42,6 +61,15 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/vendors">
 							<Vendors />
+						</Route>
+						<Route exact path="/Products">
+							<Products />
+						</Route>
+						<Route exact path="/PerfilProducts">
+							<PerfilProducts />
+						</Route>
+						<Route exact path="/BuyProducts">
+							<BuyProducts />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

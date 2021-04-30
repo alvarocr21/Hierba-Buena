@@ -5,7 +5,6 @@ export const Navbar = () => {
 	const [menuDisplay, setMenuDisplay] = useState(false);
 	let fadeClass = undefined;
 	let openClass = undefined;
-
 	if (menuDisplay === true) {
 		fadeClass = "fade";
 		openClass = "open";
@@ -13,7 +12,6 @@ export const Navbar = () => {
 		fadeClass = "";
 		openClass = "";
 	}
-
 	return (
 		<nav className="fixed-top">
 			<div>
@@ -77,6 +75,9 @@ export const Navbar = () => {
 						</span>
 					</Link>
 				</li>
+				<Link to="/CreateProfile">
+					<span className="navbar-brand mb-0 h1">Create Profile</span>
+				</Link>
 			</ul>
 		</nav>
 	);

@@ -3,6 +3,9 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
+import { CreateProfile } from "./pages/profiles/createProfile";
+import { Profile } from "./pages/profiles/profile";
+import { Vendors } from "./pages/Vendors/vendors";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
@@ -10,7 +13,9 @@ import { Login } from "./pages/login/login";
 import { Register } from "./pages/login/register";
 import { RecoverPassword } from "./pages/login/recoverPassword";
 import { ContactUs } from "./pages/contactUs/contactUs";
-
+import { BuyProducts } from "./pages/products/buyProducts";
+import { Products } from "./pages/products/products";
+import { PerfilProducts } from "./pages/products/perfilProducts";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
@@ -47,6 +52,24 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
+						</Route>
+						<Route exact path="/CreateProfile">
+							<CreateProfile />
+						</Route>
+						<Route exact path="/profile">
+							<Profile />
+						</Route>
+						<Route exact path="/vendors">
+							<Vendors />
+						</Route>
+						<Route exact path="/Products">
+							<Products />
+						</Route>
+						<Route exact path="/PerfilProducts">
+							<PerfilProducts />
+						</Route>
+						<Route exact path="/BuyProducts">
+							<BuyProducts />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

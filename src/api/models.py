@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -8,7 +9,7 @@ class User(db.Model):
     name = db.Column(db.String(20), unique=False, nullable=False)
     lastname = db.Column(db.String(20), unique=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.String(120), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     perfil = db.relationship('Perfil', lazy=True)
 
@@ -23,8 +24,17 @@ class User(db.Model):
             "email": self.email,
             "is_active": self.is_active,
             "perfil": list(map(lambda x: x.serialize(), self.perfil)),
-            # do not serialize the password, its a security breach
-            #probando
+            
+        }
+
+    def serialize_valida(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "lastname": self.lastname,
+            "email": self.email,
+            "password": self.password,
+            "is_active": self.is_active,
         }
 
 class Provincia(db.Model):
@@ -66,6 +76,7 @@ class Canton(db.Model):
             # do not serialize the password, its a security breach
             #probando
         }
+
 class Distrito(db.Model):
     __tablename__ = 'distrito'
     id = db.Column(db.Integer, primary_key=True)
@@ -109,7 +120,7 @@ class Perfil(db.Model):
             "id_canton": self.id_canton,
             "id_distrito": self.id_distrito,
             "phone": self.phone,
-            "coberturaKm": self.coberturaKm,
+            "coberturaKm": str(self.coberturaKm),
             "foto_perfil": self.foto_perfil,
             "coordenadas": self.coordenadas,
             "perfil_producto": list(map(lambda x: x.serialize(), self.perfil_producto)),
@@ -132,7 +143,6 @@ class Producto(db.Model):
             "id": self.id,
             "name": self.name,
             "photo": self.photo,
-            "price": self.price,
             "perfil_producto": list(map(lambda x: x.serialize(), self.perfil_producto)),
             # do not serialize the password, its a security breach
             
@@ -155,7 +165,7 @@ class Perfil_Producto(db.Model):
             "id": self.id,
             "id_perfil": self.id_perfil,
             "id_producto": self.id_producto,
-            "price": self.price,
+            "price": str(self.price),
             "detalle": self.detalle,
             
             # do not serialize the password, its a security breach

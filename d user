@@ -1,0 +1,5 @@
+ id |  name  | lastname |         email          | password | is_active 
+----+--------+----------+------------------------+----------+-----------
+  1 | Alvaro | Solano   | alvarocr33@hotmail.com | 123456   | t
+(1 row)
+

@@ -10,7 +10,9 @@ import { Login } from "./pages/login/login";
 import { Register } from "./pages/login/register";
 import { RecoverPassword } from "./pages/login/recoverPassword";
 import { ContactUs } from "./pages/contactUs/contactUs";
-
+import { BuyProducts } from "./pages/products/buyProducts";
+import { Products } from "./pages/products/products";
+import { PerfilProducts } from "./pages/products/perfilProducts";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
@@ -47,6 +49,15 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
+						</Route>
+						<Route exact path="/Products">
+							<Products />
+						</Route>
+						<Route exact path="/PerfilProducts">
+							<PerfilProducts />
+						</Route>
+						<Route exact path="/BuyProducts">
+							<BuyProducts />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

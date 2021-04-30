@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import accordionimg1 from "../../img/landingPage/landing 5.jpg";
 
 class Accordion extends Component {
 	state = {
@@ -20,8 +21,9 @@ class Accordion extends Component {
 					<span className="accordion-item__icon" />
 				</div>
 				<div className="accordion-item__inner">
-					<div className="accordion-item__content">
+					<div className="accordion-item__content p-4">
 						<p className="accordion-item__paragraph">
+							<img className="pb-3" id="accordionimg1" src={accordionimg1} />
 							La oportunidad de comprar alimentos cultivados localmente es invaluable a medida que aumenta
 							la demanda. Los consumidores se benefician de opciones de alimentos más saludables, y los
 							agricultores se benefician de nuevas oportunidades para vender sus cultivos. Los

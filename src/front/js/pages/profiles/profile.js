@@ -11,7 +11,7 @@ export const Profile = () => {
 				<input
 					type="text"
 					className="form-control"
-					placeholder="Recipient's username"
+					placeholder="Nombre del vendedor"
 					aria-label="Recipient's username"
 					aria-describedby="button-addon2"
 				/>

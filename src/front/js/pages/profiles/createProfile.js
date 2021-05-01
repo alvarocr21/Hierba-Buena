@@ -7,27 +7,51 @@ export const CreateProfile = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div>
+		<div className="p-4">
 			<div>
 				<div className="text-center mt-5">
 					<form>
 						<div className="form-row">
-							<div className="form-group col-md-6">
+							<div className="form-group col-md-12">
 								<label>Nombre Completo</label>
-								<input type="email" className="form-control" id="inputEmail4" />
-							</div>
-							<div className="form-group col-md-6">
-								<label>Correo electrónico</label>
-								<input type="password" className="form-control" id="inputPassword4" />
+								<input
+									type="email"
+									className="form-control"
+									id="inputEmail"
+									placeholder="Ingrese su nombre"
+								/>
 							</div>
 						</div>
+
+						<div className="form-row">
+							<div className="form-group col-md-12">
+								<label>Correo electrónico</label>
+								<input
+									type="text"
+									className="form-control"
+									id="inputCorreo"
+									placeholder="Ingrese su correo"
+								/>
+							</div>
+						</div>
+
 						<div className="form-group">
 							<label>Teléfono</label>
-							<input type="text" className="form-control" id="inputAddress" placeholder="" />
+							<input
+								type="text"
+								className="form-control"
+								id="inputAddress"
+								placeholder="Ingrese su telefono"
+							/>
 						</div>
 						<div className="form-group">
 							<label>Dirección</label>
-							<input type="text" className="form-control" id="inputAddress2" placeholder="" />
+							<input
+								type="text"
+								className="form-control"
+								id="inputAddress2"
+								placeholder="Ingrese su direccion"
+							/>
 						</div>
 						<div className="form-row">
 							<div className="form-group col-md-4">
@@ -61,14 +85,14 @@ export const CreateProfile = () => {
 										Upload
 									</span>
 								</div>
-								<div className="custom-file">
+								<div className="custom-file col-lg-6">
 									<input
 										type="file"
-										className="custom-file-input"
+										className="custom-file-input col-lg-8"
 										id="inputGroupFile01"
 										aria-describedby="inputGroupFileAddon01"
 									/>
-									<label className="custom-file-label">Choose file</label>
+									<label className="custom-file-label col-lg-12">Choose file</label>
 								</div>
 							</div>
 							<div className="form-group">
@@ -78,7 +102,7 @@ export const CreateProfile = () => {
 						</div>
 
 						<Link to="/profile">
-							<button type="submit" className="btn btn-primary">
+							<button type="submit" className="btn">
 								Crear Perfil
 							</button>
 						</Link>

@@ -14,7 +14,7 @@ export const Blog = () => {
 					<li data-target="#carouselExampleIndicators" data-slide-to="2" />
 				</ol>
 				<div className="carousel-inner">
-					<div className="carousel-item active">
+					<div className="carousel-item active mx-3 my-3">
 						<img
 							src="https://www.biotropic.com/images/news/2019/beitragsbilder/PPP-CostaRica_1200px.jpg"
 							className="d-block w-100"

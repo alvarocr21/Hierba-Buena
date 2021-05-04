@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
+import { Link } from "react-router-dom";
 
 export const PerfilProducts = () => {
 	const { store, actions } = useContext(Context);
@@ -35,9 +36,9 @@ export const PerfilProducts = () => {
 
 					<h5 className="card-title">Precio: ¢1500 Kilo</h5>
 
-					<a href="#" className="btn btn-success float-right ">
-						Comprar
-					</a>
+					<Link to="/BuyProducts">
+						<button className="btn btn-success float-right ">Regresar</button>
+					</Link>
 				</div>
 			</div>
 		</div>

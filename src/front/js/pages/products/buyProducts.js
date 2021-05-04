@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
+import { Link } from "react-router-dom";
 
 export const BuyProducts = () => {
 	const { store, actions } = useContext(Context);
@@ -68,7 +69,9 @@ export const BuyProducts = () => {
 						<strong>Total: 2600</strong>
 					</div>
 					<div className="col  d-flex justify-content-end">
-						<button className="btn btn-primary">Detalle</button>
+						<Link to="/PerfilProducts">
+							<button className="btn btn-primary ">Detalle</button>
+						</Link>
 					</div>
 				</div>
 
@@ -143,7 +146,9 @@ export const BuyProducts = () => {
 						<strong>Total: 2600</strong>
 					</div>
 					<div className="col  d-flex justify-content-end">
-						<button className="btn btn-primary">Detalle</button>
+						<Link to="/PerfilProducts">
+							<button className="btn btn-primary ">Detalle</button>
+						</Link>
 					</div>
 				</div>
 
@@ -169,6 +174,9 @@ export const BuyProducts = () => {
 					</div>
 				</div>
 			</div>
+			<Link to="/Products">
+				<button className="btn btn-success float-right ">Regresar</button>
+			</Link>
 		</div>
 	);
 };

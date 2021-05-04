@@ -11,7 +11,7 @@ export const Blog = () => {
 			<Carousel>
 				<Carousel.Item>
 					<img
-						className="d-block w-100"
+						className="d-block w-100 ml-3 my-3"
 						src="https://www.biotropic.com/images/news/2019/beitragsbilder/PPP-CostaRica_1200px.jpg"
 						alt="First slide"
 					/>
@@ -23,7 +23,7 @@ export const Blog = () => {
 				<Carousel.Item>
 					<img
 						className="d-block w-100"
-						src="https://c8.alamy.com/compes/x54ny5/agricultor-cuttting-pina-costa-rica-x54ny5.jpg"
+						src="https://www.lateja.cr/resizer/0fNaS7QleEmBP1NS4ltTcBntQbw=/600x0/center/middle/filters:quality(100)/arc-anglerfish-arc2-prod-gruponacion.s3.amazonaws.com/public/WOZTXRYOHZBPZPYQOKPAU7ECHM.JPG"
 						alt="Second slide"
 					/>
 

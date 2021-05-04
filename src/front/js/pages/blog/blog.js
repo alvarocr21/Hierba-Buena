@@ -8,10 +8,10 @@ export const Blog = () => {
 
 	return (
 		<div>
-			<Carousel>
+			<Carousel className="mx-3 my-3">
 				<Carousel.Item>
 					<img
-						className="d-block w-100 ml-3 my-3"
+						className="d-block w-100"
 						src="https://www.biotropic.com/images/news/2019/beitragsbilder/PPP-CostaRica_1200px.jpg"
 						alt="First slide"
 					/>

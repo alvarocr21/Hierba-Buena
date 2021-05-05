@@ -128,12 +128,18 @@ def login():
     if 'password' not in request_body:
         return json_respuestas('Se debe especificar un password', 400)
     
+    #Validando email correcto
+    email_validate= email_valid(request_body["email"])
+    if email_validate == False:
+        return json_respuestas('La estructura del email no es la correcta', 400)
+
     #Obtenemos el valor de password de la BD
     user = User.query.filter_by(email = request_body["email"]).first()
-    result = user.serialize_valida()
+    
 
     #Validando existencia de usuario
     if user is not None:
+        result = user.serialize_valida()
         #Validando password usuario
         if result["is_active"]==True:
             if __verify_password(result["password"],request_body["password"]):

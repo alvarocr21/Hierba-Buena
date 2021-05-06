@@ -97,7 +97,7 @@ def update_user(user_id):
         user.email = request_body["email"]
     
     if 'password' in request_body:
-        user.password = request_body["password"]
+        user.password = __create_password(User,request_body["password"])
    
     db.session.commit()
    

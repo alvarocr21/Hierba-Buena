@@ -1,9 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
 export const Vendors = () => {
 	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		actions.ApiData("perfil", "GET", "", "perfiles");
+	}, []);
+
+	console.log(store.Perfiles);
 
 	return (
 		<div>

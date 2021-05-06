@@ -19,6 +19,7 @@ export const Blog = () => {
 						<h3>First slide label</h3>
 						<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 					</Carousel.Caption>
+					<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 				</Carousel.Item>
 				<Carousel.Item>
 					<img

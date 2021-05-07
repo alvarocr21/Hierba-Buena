@@ -1,27 +1,23 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
+import { Link } from "react-router-dom";
+import { CardBuyProducts } from "../../component/Products/cardBuyProducts";
+import { SearchProducts } from "../../component/Products/searchProducts";
 
 export const BuyProducts = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="card-body ">
-			<img
-				src="https://s1.eestatic.com/2020/03/17/ciencia/nutricion/vegetales-transgenicos-tomate_475465019_148545151_1024x576.jpg"
-				className="card-img-top"
-				alt="..."
-			/>
+		<div>
+			<SearchProducts />
+			<CardBuyProducts />
+			<CardBuyProducts />
+			<CardBuyProducts />
 
-			<div className="card-body">
-				<h5 className="card-title">Card title</h5>
-				<p className="card-text">
-					Some quick example text to build on the card title and make up the bulk of the cards content.
-				</p>
-				<a href="#" className="btn btn-success float-right">
-					Go somewhere
-				</a>
-			</div>
+			<Link to="/Products">
+				<button className="btn btn-success float-right ">Regresar</button>
+			</Link>
 		</div>
 	);
 };

@@ -11,15 +11,17 @@ export const Products = () => {
 	useEffect(() => {
 		actions.ApiData("producto", "GET", "", "productos");
 	}, []);
+	let nombre = store.Productos;
 
-	console.log(store.Productos);
+	console.log(nombre);
 
 	return (
 		<div>
 			<SearchProducts />
-			<CardProducts />
-			<CardProducts />
-			<CardProducts />
+			{nombre.map((item, index) => {
+				return <CardProducts fotoProducto={item.photo} nombreProducto={item.name} key={index} />;
+			})}
+			;
 		</div>
 	);
 };

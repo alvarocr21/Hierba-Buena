@@ -14,7 +14,7 @@ export const Vendors = () => {
 	console.log(store.Perfiles);
 
 	return (
-		<div>
+		<div className="container-fluid">
 			<SearchbarVendors />
 			<Cardvendors />
 			<Cardvendors />

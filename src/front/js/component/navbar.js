@@ -76,7 +76,9 @@ export const Navbar = () => {
 				</li>
 				<li className={fadeClass}>
 					<Link to="/CreateProfile">
-						<span className="navbar-brand mb-0 h1">Crear Perfil</span>
+						<span className="navbar-brand mb-0 h1" onClick={() => setMenuDisplay(!menuDisplay)}>
+							Crear Perfil
+						</span>
 					</Link>
 				</li>
 			</ul>

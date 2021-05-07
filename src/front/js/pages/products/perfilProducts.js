@@ -8,7 +8,7 @@ export const PerfilProducts = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div>
+		<div className="container-fluid">
 			<CardPerfilProducts />
 		</div>
 	);

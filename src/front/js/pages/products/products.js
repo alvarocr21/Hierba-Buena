@@ -15,7 +15,7 @@ export const Products = () => {
 	console.log(store.Productos);
 
 	return (
-		<div>
+		<div className="container-fluid">
 			<SearchProducts />
 			<CardProducts />
 			<CardProducts />

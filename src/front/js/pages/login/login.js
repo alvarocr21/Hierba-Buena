@@ -1,24 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
 
 export const Login = () => {
 	const { store, actions } = useContext(Context);
+	const [email, setEmail] = useState([]);
+	const [password, setPassword] = useState([]);
+
+	const handleSubmit = e => {
+		e.preventDefault();
+		actions.login(email, password);
+	};
 
 	return (
 		<div className="p-4">
-			<form>
+			<form onSubmit={handleSubmit}>
 				<h3>Inicio sesión</h3>
 
 				<div className="form-group">
 					<label>Correo electrónico</label>
-					<input type="email" className="form-control" placeholder="Ingrese su correo electrónico" />
+					<input
+						onChange={e => setEmail(e.target.value)}
+						type="email"
+						className="form-control"
+						placeholder="Ingrese su correo electrónico"
+					/>
 				</div>
 
 				<div className="form-group">
 					<label>Contraseña</label>
-					<input type="password" className="form-control" placeholder="Ingrese su contraseña" />
+					<input
+						onChange={e => setPassword(e.target.value)}
+						type="password"
+						className="form-control"
+						placeholder="Ingrese su contraseña"
+					/>
 				</div>
 				<div className="row px-3">
 					<div className="form-group">

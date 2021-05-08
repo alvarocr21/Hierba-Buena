@@ -83,12 +83,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 						password: newPassword
 					})
 				};
-				console.log(id);
 				fetch("https://proyectofinal-hierbabuena.herokuapp.com/api/user/" + id.toString(), requestOptions)
 					.then(response => response.json())
+					.then(data => {});
+			},
+			login: (email, password) => {
+				const body = {
+					email: email,
+					password: password
+				};
+
+				fetch("https://proyectofinal-hierbabuena.herokuapp.com/api/login", {
+					method: "POST",
+					body: JSON.stringify(body),
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(res => res.json())
 					.then(data => {
-						console.log(id);
-					});
+						console.log(data);
+						sessionStorage.setItem("my_token", data.token);
+					})
+					.catch(err => console.log(err));
 			}
 		}
 	};

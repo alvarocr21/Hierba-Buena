@@ -22,7 +22,6 @@ export const Products = () => {
 			{arrayProducto.map((item, index) => {
 				return <CardProducts fotoProducto={item.photo} nombreProducto={item.name} key={index} />;
 			})}
-			;
 		</div>
 	);
 };

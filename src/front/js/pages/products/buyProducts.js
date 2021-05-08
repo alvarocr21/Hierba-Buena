@@ -9,7 +9,7 @@ export const BuyProducts = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div>
+		<div className="container-fluid">
 			<SearchProducts />
 			<CardBuyProducts />
 			<CardBuyProducts />

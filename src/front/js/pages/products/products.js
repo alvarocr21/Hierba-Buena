@@ -17,7 +17,7 @@ export const Products = () => {
 	console.log(arrayProducto);
 
 	return (
-		<div>
+		<div className="container-fluid">
 			<SearchProducts />
 			{arrayProducto.map((item, index) => {
 				return <CardProducts fotoProducto={item.photo} nombreProducto={item.name} key={index} />;

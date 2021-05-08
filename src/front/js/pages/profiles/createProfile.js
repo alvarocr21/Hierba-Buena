@@ -45,11 +45,11 @@ export const CreateProfile = () => {
 							<div className="form-row">
 								<div className="form-group col-md-6">
 									<label>Nombre Completo</label>
-									<input type="email" className="form-control" id="inputEmail4" />
+									<input type="text" className="form-control" id="inputEmail4" />
 								</div>
 								<div className="form-group col-md-6">
 									<label>Correo electrónico</label>
-									<input type="password" className="form-control" id="inputPassword4" />
+									<input type="text" className="form-control" id="inputPassword4" />
 								</div>
 							</div>
 							<div className="form-group">
@@ -116,14 +116,13 @@ export const CreateProfile = () => {
 							<label className="custom-file-label d-flex justify-content-start">{imgName}</label>
 						</div>
 					</div>
-					<Mapa />
-
-					<Link to="/profile">
-						<button type="submit" className="btn btn-primary">
-							Crear Perfil
-						</button>
-					</Link>
 				</form>
+				<Mapa />
+				<Link to="/profile">
+					<button type="submit" className="btn btn-primary">
+						Crear Perfil
+					</button>
+				</Link>
 			</div>
 		</div>
 	);

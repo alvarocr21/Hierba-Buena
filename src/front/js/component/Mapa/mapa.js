@@ -10,11 +10,11 @@ import { formatRelative } from "date-fns";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-
+import logo from "../../../img/harvest.png";
 const libraries = ["places"];
 const mapContainerStyle = {
-	with: "100vw",
-	height: "100vh"
+	with: "90vw",
+	height: "45vh"
 };
 
 const center = {
@@ -79,7 +79,7 @@ export const Mapa = () => {
 						key={marker.time.toISOString()}
 						position={{ lat: marker.lat, lng: marker.lng }}
 						icon={{
-							url: "/harvest.png",
+							url: logo,
 							scaledSize: new window.google.maps.Size(40, 60),
 							origin: new window.google.maps.Point(0, 0),
 							anchor: new window.google.maps.Point(20, 30)

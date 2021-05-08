@@ -4,18 +4,11 @@ import "../../../styles/_home.scss";
 import "../../../styles/_mapa.scss";
 import { Link } from "react-router-dom";
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
-
+import PropTypes from "prop-types";
 import { formatRelative } from "date-fns";
 //import * as parksData from "../data/skateboard-parks.json";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
-import {
-	Combobox,
-	ComboboxInput,
-	ComboboxPopover,
-	ComboboxList,
-	ComboboxOption,
-	ComboboxOptionText
-} from "@reach/combobox";
+import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
 const libraries = ["places"];
@@ -35,9 +28,9 @@ const options = {
 
 export const Mapa = () => {
 	const { store, actions } = useContext(Context);
+
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_API_KEY_GOOGLE_MAPS,
-		//googleMapsApiKey: credentials.mapsKey,
 		libraries
 	});
 
@@ -60,7 +53,7 @@ export const Mapa = () => {
 	}, []);
 
 	const panTo = React.useCallback(({ lat, lng }) => {
-		console.log(mapRef);
+		//console.log(mapRef);
 		mapRef.current.panTo({ lat, lng });
 		mapRef.current.setZoom(14);
 	}, []);
@@ -155,9 +148,9 @@ function Search({ panTo }) {
 						const { lat, lng } = await getLatLng(results[0]);
 						panTo({ lat, lng });
 					} catch (error) {
-						console.log("error");
+						//console.log("error");
 					}
-					console.log(address);
+					//console.log(address);
 				}}>
 				<ComboboxInput
 					value={value}
@@ -177,3 +170,10 @@ function Search({ panTo }) {
 		</div>
 	);
 }
+
+Search.propTypes = {
+	panTo: PropTypes.object
+};
+Locate.propTypes = {
+	panTo: PropTypes.object
+};

@@ -15,10 +15,10 @@ export const CreateProfile = () => {
 	const uploadImage = async e => {
 		const file = e.target.files[0];
 		setImgName(file.name);
-		console.log(e.target.files[0]);
+		//console.log(e.target.files[0]);
 		const base64 = await convertBase64(file);
 		setBaseImage(base64);
-		console.log(base64);
+		//console.log(base64);
 	};
 
 	const convertBase64 = file => {

@@ -1,9 +1,8 @@
 import React, { useState, useContext } from "react";
-
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
-
+import { Mapa } from "../../component/Mapa/mapa";
 export const CreateProfile = () => {
 	const { store, actions } = useContext(Context);
 	const [baseImage, setBaseImage] = useState("");
@@ -117,10 +116,7 @@ export const CreateProfile = () => {
 							<label className="custom-file-label d-flex justify-content-start">{imgName}</label>
 						</div>
 					</div>
-					<div className="form-group">
-						<label>Example textarea</label>
-						<textarea className="form-control" id="exampleFormControlTextarea1" rows="3" />
-					</div>
+					<Mapa />
 
 					<Link to="/profile">
 						<button type="submit" className="btn btn-primary">

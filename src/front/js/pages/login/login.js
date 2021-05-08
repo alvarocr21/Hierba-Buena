@@ -7,6 +7,7 @@ export const Login = () => {
 	const { store, actions } = useContext(Context);
 	const [email, setEmail] = useState([]);
 	const [password, setPassword] = useState([]);
+	const [auth, setAuth] = useState(false);
 
 	const handleSubmit = e => {
 		e.preventDefault();

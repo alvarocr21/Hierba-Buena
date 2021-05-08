@@ -70,7 +70,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 				const response = await fetch(url, config);
 				const json = await response.json();
-				console.log(">>Data", json.Data);
 				setStore({ userList: json.Data });
 			},
 			updatePassword: (newPassword, id) => {

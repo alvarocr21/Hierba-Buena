@@ -37,7 +37,6 @@ export const RecoverPassword = () => {
 					.then(
 						result => {
 							actions.updatePassword(newVal, id);
-							console.log(id);
 							alert("Enviamos su nueva contraseña");
 						},
 						error => {

@@ -59,7 +59,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log("Error loading message from backend", error));
 			},
 			fetchUsers: async () => {
-				const url = "https://3001-maroon-whippet-miasctsa.ws-us03.gitpod.io/api/user/";
+				const url = "https://3001-chocolate-puffin-krew1knw.ws-us03.gitpod.io/api/user/";
 				const config = {
 					method: "GET",
 					headers: {
@@ -71,7 +71,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(">>Data", json.Data);
 				setStore({ userList: json.Data });
 			},
-			updatePassword: newPassword => {
+			updatePassword: (newPassword, id) => {
 				const requestOptions = {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
@@ -81,9 +81,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 						password: newPassword
 					})
 				};
-				fetch("https://3001-maroon-whippet-miasctsa.ws-us03.gitpod.io/api/user/1", requestOptions)
+				fetch(
+					"https://3001-chocolate-puffin-krew1knw.ws-us03.gitpod.io/api/user/" + id.toString(),
+					requestOptions
+				)
 					.then(response => response.json())
-					.then(data => {});
+					.then(data => {
+						console.log(id);
+					});
 			}
 		}
 	};

@@ -25,6 +25,7 @@ export const RecoverPassword = () => {
 				}
 				var password = newVal;
 				var newPassword = "";
+				var id = index + 1;
 
 				emailjs
 					.send(
@@ -35,7 +36,8 @@ export const RecoverPassword = () => {
 					)
 					.then(
 						result => {
-							actions.updatePassword(newVal);
+							actions.updatePassword(newVal, id);
+							console.log(id);
 							alert("Enviamos su nueva contraseña");
 						},
 						error => {

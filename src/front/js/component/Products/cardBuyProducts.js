@@ -15,7 +15,7 @@ export const CardBuyProducts = () => {
 							<div className="col">
 								<img
 									src="https://s1.eestatic.com/2020/03/17/ciencia/nutricion/vegetales-transgenicos-tomate_475465019_148545151_1024x576.jpg"
-									className="card-img-top rounded-circle my-3"
+									className="card-img-top rounded-circle small-circle my-3"
 									alt="..."
 								/>
 							</div>
@@ -35,7 +35,7 @@ export const CardBuyProducts = () => {
 								<div className="col">
 									<img
 										src="https://www.elmundo.cr/wp-content/uploads/2020/02/2020-01-15-11.39.43-1024x768.jpg"
-										className="card-img-top rounded-circle my-3"
+										className="card-img-top rounded-circle small-circle my-3"
 										alt="..."
 									/>
 								</div>
@@ -57,7 +57,7 @@ export const CardBuyProducts = () => {
 					</div>
 					<div className="col  d-flex justify-content-end">
 						<Link to="/PerfilProducts">
-							<button className="btn btn-primary ">Detalle</button>
+							<button className="btn btn-success">Detalle</button>
 						</Link>
 					</div>
 				</div>

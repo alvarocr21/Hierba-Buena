@@ -61,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch(error => console.log("Error loading message from backend", error));
 			},
 			fetchUsers: async () => {
-				const url = "https://3001-chocolate-puffin-krew1knw.ws-us03.gitpod.io/api/user/";
+				const url = "https://proyectofinal-hierbabuena.herokuapp.com/api/user/";
 				const config = {
 					method: "GET",
 					headers: {
@@ -83,10 +83,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						password: newPassword
 					})
 				};
-				fetch(
-					"https://3001-chocolate-puffin-krew1knw.ws-us03.gitpod.io/api/user/" + id.toString(),
-					requestOptions
-				)
+				console.log(id);
+				fetch("https://proyectofinal-hierbabuena.herokuapp.com/api/user/" + id.toString(), requestOptions)
 					.then(response => response.json())
 					.then(data => {
 						console.log(id);

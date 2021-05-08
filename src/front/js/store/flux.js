@@ -9,7 +9,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			Canton: [],
 			Distrito: [],
 			Perfil_Producto: [],
-			mensaje: []
+			mensaje: [],
+			fotoPro: "",
+			nombre: ""
 		},
 		actions: {
 			ApiData: async (url, metodo = "GET", body = "", tipo, headers = { "Content-Type": "application/json" }) => {
@@ -22,19 +24,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const json = await dataApi.json();
 
 					if (tipo == "users") {
-						setStore({ Users: json });
+						setStore({ Users: json.Data });
 					} else if (tipo == "productos") {
-						setStore({ Productos: json });
+						setStore({ Productos: json.Data });
 					} else if (tipo == "perfiles") {
-						setStore({ Perfiles: json });
+						setStore({ Perfiles: json.Data });
 					} else if (tipo == "provincias") {
-						setStore({ Provincias: json });
+						setStore({ Provincias: json.Data });
 					} else if (tipo == "canton") {
-						setStore({ Canton: json });
+						setStore({ Canton: json.Data });
 					} else if (tipo == "distritos") {
-						setStore({ Distrito: json });
+						setStore({ Distrito: json.Data });
 					} else if (tipo == "perfil_productos") {
-						setStore({ Perfil_Producto: json });
+						setStore({ Perfil_Producto: json.Data });
 					}
 				} else {
 					const dataApi = await fetch(uri + url, {

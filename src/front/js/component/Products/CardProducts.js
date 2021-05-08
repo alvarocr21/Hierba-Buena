@@ -2,21 +2,18 @@ import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const CardProducts = () => {
+export const CardProducts = props => {
 	const { store, actions } = useContext(Context);
 
 	return (
 		<div>
 			<div className="card mb-2">
-				<img
-					src="https://s1.eestatic.com/2020/03/17/ciencia/nutricion/vegetales-transgenicos-tomate_475465019_148545151_1024x576.jpg"
-					className="card-img-top"
-					alt="..."
-				/>
+				<img src={props.fotoProducto} className="card-img-top" alt="..." />
 
 				<div className="card-body">
-					<h5 className="card-title">Tomate</h5>
+					<h5 className="card-title">{props.nombreProducto}</h5>
 					<p className="card-text">Tomate Primera Calidad</p>
 
 					<Link to="/BuyProducts">
@@ -26,4 +23,9 @@ export const CardProducts = () => {
 			</div>
 		</div>
 	);
+};
+
+CardProducts.propTypes = {
+	fotoProducto: PropTypes.string,
+	nombreProducto: PropTypes.string
 };

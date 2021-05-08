@@ -7,19 +7,22 @@ import { SearchProducts } from "../../component/Products/searchProducts";
 
 export const Products = () => {
 	const { store, actions } = useContext(Context);
-	let password;
+
 	useEffect(() => {
 		actions.ApiData("producto", "GET", "", "productos");
 	}, []);
 
-	console.log(store.Productos);
+	let arrayProducto = store.Productos;
+
+	console.log(arrayProducto);
 
 	return (
 		<div className="container-fluid">
 			<SearchProducts />
-			<CardProducts />
-			<CardProducts />
-			<CardProducts />
+			{arrayProducto.map((item, index) => {
+				return <CardProducts fotoProducto={item.photo} nombreProducto={item.name} key={index} />;
+			})}
+			;
 		</div>
 	);
 };

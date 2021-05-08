@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
-export const Cardvendors = () => {
+import PropTypes from "prop-types";
+
+export const Cardvendors = props => {
 	const { store, actions } = useContext(Context);
 
 	return (
@@ -21,5 +23,10 @@ export const Cardvendors = () => {
 				</div>
 			</div>
 		</div>
-	);
+    );
+    };
+
+    Cardvendors.propTypes = {
+	FotoPerfil: PropTypes.string,
+	NombreVendor: PropTypes.string
 };

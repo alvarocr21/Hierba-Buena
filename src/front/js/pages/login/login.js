@@ -25,8 +25,6 @@ export const Login = () => {
 			}
 		})
 			.then(res => {
-				console.log(res.ok);
-
 				res.ok ? alert("Gracias por iniciar sesión") : alert("Credenciales incorrectas");
 
 				setAuth(res.ok);

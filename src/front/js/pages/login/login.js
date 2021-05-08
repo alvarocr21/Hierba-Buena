@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
@@ -11,7 +12,27 @@ export const Login = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		actions.login(email, password);
+		const body = {
+			email: email,
+			password: password
+		};
+
+		fetch("https://proyectofinal-hierbabuena.herokuapp.com/api/login", {
+			method: "POST",
+			body: JSON.stringify(body),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(res => {
+				console.log(res.ok);
+
+				res.ok ? alert("Gracias por iniciar sesión") : alert("Credenciales incorrectas");
+
+				setAuth(res.ok);
+			})
+			.then(data => {})
+			.catch(err => console.log(err));
 	};
 
 	return (
@@ -62,6 +83,7 @@ export const Login = () => {
 					Iniciar sesión
 				</button>
 			</form>
+			{auth ? <Redirect to="/Products" /> : null}
 			<div className=" row px-4 pt-2">
 				<p className="forgot-password mr-auto">
 					¿No tiene cuenta?{" "}

@@ -24,12 +24,13 @@ export const Login = () => {
 				"Content-Type": "application/json"
 			}
 		})
-			.then(res => {
-				res.ok ? alert("Gracias por iniciar sesión") : alert("Credenciales incorrectas");
-
-				setAuth(res.ok);
+			.then(resp => {
+				setAuth(resp.ok);
+				return resp.json();
 			})
-			.then(data => {})
+			.then(data => {
+				alert(data.message);
+			})
 			.catch(err => console.log(err));
 	};
 

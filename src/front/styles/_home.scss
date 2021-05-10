@@ -1,0 +1,42 @@
+@import "_colors.scss";
+body {
+  margin-top:10vh
+}
+#landingimg1{
+    width: 100%;
+}
+/* Container needed to position the button. Adjust the width as needed */
+.box {
+  position: relative;
+  width: 100%;
+}
+/* Make the image responsive */
+.box img {
+  width: 100%;
+  height: auto;
+}
+/* Style the button and place it in the middle of the container/image */
+.box .btn {
+  position: absolute;
+  top: 85%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: $white;
+  background-color: $darkgreen;
+  font-size: 16px;
+  padding: 4px 4px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+.container .btn:hover {
+  background-color: black;
+}
+@media screen and (min-width: 1025px) {
+       .h-100 {
+    padding-left: 14vh;
+    padding-right: 14vh;
+  }
+    }

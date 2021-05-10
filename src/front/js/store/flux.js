@@ -11,7 +11,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			Perfil_Producto: [],
 			mensaje: [],
 			fotoPro: "",
-			nombre: ""
+			nombre: "",
+			inicioSesion: false
 		},
 		actions: {
 			ApiData: async (url, metodo = "GET", body = "", tipo, headers) => {
@@ -63,7 +64,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 				const response = await fetch(url, config);
 				const json = await response.json();
-				console.log(">>Data", json.Data);
 				setStore({ userList: json.Data });
 			},
 			updatePassword: (newPassword, id) => {
@@ -76,11 +76,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 						password: newPassword
 					})
 				};
-				fetch("https://proyectofinal-hierbabuena.herokuapp.com/api/api/user/" + id.toString(), requestOptions)
+				fetch("https://proyectofinal-hierbabuena.herokuapp.com/api/user/" + id.toString(), requestOptions)
 					.then(response => response.json())
-					.then(data => {
-						console.log(id);
-					});
+					.then(data => {});
+			},
+			login: resp => {
+				const store = getStore();
+				resp ? setStore({ inicioSesion: true }) : null;
+			},
+			logout: () => {
+				setStore({ inicioSesion: false });
+				alert("Su sesión ha finalizado");
 			}
 		}
 	};

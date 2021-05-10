@@ -22,6 +22,11 @@ nav {
   text-decoration: none;
   font-size: 16px;
 }
+
+.hide{
+    display:none;
+}
+
 #titulo-navbar{
     font-family: 'Open Sans',serif;
     color: $white;
@@ -106,18 +111,23 @@ vertical-align: baseline;
     transition: all 0.5s ease 0.2s;
   }
   .nav-links li:nth-child(3) {
-    transition: all 0.5s ease 0.3s;
+    transition: all 0.5s ease 0.2s;
   }
   .nav-links li:nth-child(4) {
-    transition: all 0.5s ease 0.4s;
+    transition: all 0.5s ease 0.3s;
   }
     .nav-links li:nth-child(5) {
-    transition: all 0.5s ease 0.5s;
+    transition: all 0.5s ease 0.4s;
   }
 
      .nav-links li:nth-child(6) {
+    transition: all 0.5s ease 0.5s;
+  }
+
+       .nav-links li:nth-child(7) {
     transition: all 0.5s ease 0.6s;
   }
+
   li.fade {
     opacity: 1 !important;
   }

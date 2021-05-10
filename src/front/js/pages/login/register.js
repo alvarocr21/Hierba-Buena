@@ -1,34 +1,85 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
+import { Redirect } from "react-router-dom";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
 
 export const Register = () => {
 	const { store, actions } = useContext(Context);
+	const [name, setName] = useState([]);
+	const [lastName, setLastName] = useState([]);
+	const [email, setEmail] = useState([]);
+	const [password, setPassword] = useState([]);
+	const [auth, setAuth] = useState(false);
+
+	const handleSubmit = e => {
+		e.preventDefault();
+		const body = {
+			email: email,
+			password: password,
+			name: name,
+			lastname: lastName
+		};
+
+		fetch("https://proyectofinal-hierbabuena.herokuapp.com/api/user", {
+			method: "POST",
+			body: JSON.stringify(body),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => {
+				setAuth(resp.ok);
+				return resp.json();
+			})
+			.then(data => alert(data.message))
+			.catch(err => console.log(err));
+	};
 
 	return (
 		<div className="p-4">
-			<form>
+			<form onSubmit={handleSubmit}>
 				<h3>Registrarse</h3>
 
 				<div className="form-group">
 					<label>Nombre</label>
-					<input type="text" className="form-control" placeholder="Ingrese su nombre" />
+					<input
+						onChange={e => setName(e.target.value)}
+						type="text"
+						className="form-control"
+						placeholder="Ingrese su nombre"
+					/>
 				</div>
 
 				<div className="form-group">
 					<label>Apellido</label>
-					<input type="text" className="form-control" placeholder="Ingrese su apellido" />
+					<input
+						onChange={e => setLastName(e.target.value)}
+						type="text"
+						className="form-control"
+						placeholder="Ingrese su apellido"
+					/>
 				</div>
 
 				<div className="form-group">
 					<label>Correo electrónico</label>
-					<input type="email" className="form-control" placeholder="Ingrese su correo electrónico" />
+					<input
+						onChange={e => setEmail(e.target.value)}
+						type="email"
+						className="form-control"
+						placeholder="Ingrese su correo electrónico"
+					/>
 				</div>
 
 				<div className="form-group">
 					<label>Contraseña</label>
-					<input type="password" className="form-control" placeholder="Ingrese su contraseña" />
+					<input
+						onChange={e => setPassword(e.target.value)}
+						type="password"
+						className="form-control"
+						placeholder="Ingrese su contraseña"
+						required="required"
+					/>
 				</div>
 
 				<button type="submit" className="btn btn-success btn-block">
@@ -41,6 +92,7 @@ export const Register = () => {
 					</Link>
 				</p>
 			</form>
+			{auth ? <Redirect to="/Login" /> : null}
 		</div>
 	);
 };

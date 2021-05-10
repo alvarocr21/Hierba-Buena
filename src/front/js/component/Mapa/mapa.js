@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useCallback, useRef } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
 import "../../../styles/_mapa.scss";
-import { Link } from "react-router-dom";
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import PropTypes from "prop-types";
 import { formatRelative } from "date-fns";
@@ -11,6 +10,7 @@ import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocom
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import logo from "../../../img/harvest.png";
+import ubicacionMapa from "../../../img/ubicacion.png";
 const libraries = ["places"];
 const mapContainerStyle = {
 	with: "90vw",
@@ -34,9 +34,9 @@ export const Mapa = () => {
 		libraries
 	});
 
-	const [markers, setMarkers] = React.useState([]);
-	const [selected, setSelected] = React.useState(null);
-	const onMapClick = React.useCallback(event => {
+	const [markers, setMarkers] = useState([]);
+	const [selected, setSelected] = useState(null);
+	const onMapClick = useCallback(event => {
 		setMarkers(current => [
 			...current,
 			{
@@ -47,13 +47,12 @@ export const Mapa = () => {
 		]);
 	}, []);
 
-	const mapRef = React.useRef();
-	const onMapLoad = React.useCallback(map => {
+	const mapRef = useRef();
+	const onMapLoad = useCallback(map => {
 		mapRef.current = map;
 	}, []);
 
-	const panTo = React.useCallback(({ lat, lng }) => {
-		//console.log(mapRef);
+	const panTo = useCallback(({ lat, lng }) => {
 		mapRef.current.panTo({ lat, lng });
 		mapRef.current.setZoom(14);
 	}, []);
@@ -65,8 +64,8 @@ export const Mapa = () => {
 		<div>
 			<h1>Agricultores 🧑‍🌾</h1>
 
-			<Search panTo={panTo} />
-			<Locate panTo={panTo} />
+			{/* <Search panTo={panTo} />
+			<Locate panTo={panTo} /> */}
 			<GoogleMap
 				mapContainerStyle={mapContainerStyle}
 				zoom={12}
@@ -103,77 +102,77 @@ export const Mapa = () => {
 	);
 };
 
-function Locate({ panTo }) {
-	return (
-		<button
-			className="locate"
-			onClick={() => {
-				navigator.geolocation.getCurrentPosition(
-					position => {
-						panTo({
-							lat: position.coords.latitude,
-							lng: position.coords.longitude
-						});
-					},
-					() => null
-				);
-			}}>
-			<img src="ubicacion.png" alt="Mi Ubicacion" />
-		</button>
-	);
-}
+// function Locate({ panTo }) {
+// 	return (
+// 		<button
+// 			className="locate"
+// 			onClick={() => {
+// 				navigator.geolocation.getCurrentPosition(
+// 					position => {
+// 						panTo({
+// 							lat: position.coords.latitude,
+// 							lng: position.coords.longitude
+// 						});
+// 					},
+// 					() => null
+// 				);
+// 			}}>
+// 			<img src={ubicacionMapa} alt="Mi Ubicacion" />
+// 		</button>
+// 	);
+// }
 
-function Search({ panTo }) {
-	const {
-		ready,
-		value,
-		suggestions: { status, data },
-		setValue,
-		clearSuggestions
-	} = usePlacesAutocomplete({
-		requestOptions: {
-			location: { lat: () => 9.9348041, lng: () => -84.1020275 },
-			radius: 25 * 1000
-		}
-	});
-	return (
-		<div className="search">
-			<Combobox
-				onSelect={async address => {
-					setValue(address, false);
-					clearSuggestions();
+// function Search({ panTo }) {
+// 	const {
+// 		ready,
+// 		value,
+// 		suggestions: { status, data },
+// 		setValue,
+// 		clearSuggestions
+// 	} = usePlacesAutocomplete({
+// 		requestOptions: {
+// 			location: { lat: () => 9.9348041, lng: () => -84.1020275 },
+// 			radius: 25 * 1000
+// 		}
+// 	});
+// 	return (
+// 		<div className="search">
+// 			<Combobox
+// 				onSelect={async address => {
+// 					setValue(address, false);
+// 					clearSuggestions();
 
-					try {
-						const results = await getGeocode({ address });
-						const { lat, lng } = await getLatLng(results[0]);
-						panTo({ lat, lng });
-					} catch (error) {
-						//console.log("error");
-					}
-					//console.log(address);
-				}}>
-				<ComboboxInput
-					value={value}
-					onChange={e => {
-						setValue(e.target.value);
-					}}
-					disabled={!ready}
-					placeholder="Ingrese una ubicación"
-				/>
-				<ComboboxPopover>
-					<ComboboxList>
-						{status === "OK" &&
-							data.map(({ id, description }) => <ComboboxOption key={id} value={description} />)}
-					</ComboboxList>
-				</ComboboxPopover>
-			</Combobox>
-		</div>
-	);
-}
+// 					try {
+// 						const results = await getGeocode({ address });
+// 						const { lat, lng } = await getLatLng(results[0]);
+// 						panTo({ lat, lng });
+// 					} catch (error) {
+// 						//console.log("error");
+// 					}
+// 					//console.log(address);
+// 				}}>
+// 				<ComboboxInput
+// 					value={value}
+// 					onChange={e => {
+// 						setValue(e.target.value);
+// 					}}
+// 					disabled={!ready}
+// 					placeholder="Ingrese una ubicación"
+// 				/>
+// 				<ComboboxPopover>
+// 					<ComboboxList>
+// 						{status === "OK" &&
+// 							data.map(({ id, description }) => <ComboboxOption key={id} value={description} />)}
+// 					</ComboboxList>
+// 				</ComboboxPopover>
+// 			</Combobox>
+// 		</div>
+// 	);
+// }
 
-Search.propTypes = {
-	panTo: PropTypes.object
-};
-Locate.propTypes = {
-	panTo: PropTypes.object
-};
+// Search.propTypes = {
+// 	panTo: PropTypes.objeto
+// };
+// Locate.propTypes = {
+// 	panTo: PropTypes.objeto
+// };

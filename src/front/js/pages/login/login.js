@@ -26,6 +26,7 @@ export const Login = () => {
 		})
 			.then(resp => {
 				setAuth(resp.ok);
+				actions.login(resp.ok);
 				return resp.json();
 			})
 			.then(data => {

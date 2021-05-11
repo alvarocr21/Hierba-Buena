@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5b75694efa6e
+Revision ID: de6b6f4be313
 Revises: 
-Create Date: 2021-04-24 03:14:46.738588
+Create Date: 2021-05-11 03:24:33.519074
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5b75694efa6e'
+revision = 'de6b6f4be313'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,13 +21,14 @@ def upgrade():
     op.create_table('producto',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=20), nullable=False),
-    sa.Column('photo', sa.String(length=255), nullable=False),
+    sa.Column('photo', sa.UnicodeText(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('provincia',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=20), nullable=False),
     sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name'),
     sa.UniqueConstraint('name')
     )
     op.create_table('user',
@@ -38,6 +39,7 @@ def upgrade():
     sa.Column('password', sa.String(length=120), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
     sa.UniqueConstraint('email')
     )
     op.create_table('canton',
@@ -62,8 +64,8 @@ def upgrade():
     sa.Column('id_distrito', sa.Integer(), nullable=True),
     sa.Column('phone', sa.String(length=20), nullable=False),
     sa.Column('coberturaKm', sa.Numeric(), nullable=False),
-    sa.Column('foto_perfil', sa.String(length=255), nullable=False),
-    sa.Column('coordenadas', sa.String(length=255), nullable=False),
+    sa.Column('foto_perfil', sa.UnicodeText(), nullable=False),
+    sa.Column('coordenadas', sa.UnicodeText(), nullable=False),
     sa.ForeignKeyConstraint(['id_canton'], ['canton.id'], ),
     sa.ForeignKeyConstraint(['id_distrito'], ['distrito.id'], ),
     sa.ForeignKeyConstraint(['id_provincia'], ['provincia.id'], ),

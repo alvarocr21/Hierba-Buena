@@ -105,8 +105,8 @@ class Perfil(db.Model):
     id_distrito = db.Column(db.Integer,db.ForeignKey("distrito.id"))
     phone = db.Column(db.String(20), unique=False, nullable=False)
     coberturaKm = db.Column(db.Numeric,unique=False, nullable=False)
-    foto_perfil = db.Column(db.String(255), unique=False, nullable=False)
-    coordenadas = db.Column(db.String(255), unique=False, nullable=False)
+    foto_perfil = db.Column(db.Text, unique=False, nullable=False)
+    coordenadas = db.Column(db.Text, unique=False, nullable=False)
     perfil_producto = db.relationship('Perfil_Producto', lazy=True)
 
     def __repr__(self):
@@ -132,7 +132,7 @@ class Producto(db.Model):
     __tablename__ = 'producto'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=False, nullable=False)
-    photo = db.Column(db.String(255), unique=False, nullable=False)
+    photo = db.Column(db.Text, unique=False, nullable=False)
     perfil_producto = db.relationship('Perfil_Producto', lazy=True)
 
     def __repr__(self):

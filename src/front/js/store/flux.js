@@ -1,5 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	const uri = "https://proyectofinal-hierbabuena.herokuapp.com/api/";
+	const uri = "https://hierbabuenacr.herokuapp.com/api/";
+	//const uri = "https://3001-maroon-boa-3ooyep13.ws-us04.gitpod.io/api/";
 	return {
 		store: {
 			Users: [],
@@ -15,7 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			inicioSesion: false
 		},
 		actions: {
-			ApiData: async (url, metodo = "GET", body = "", tipo, headers = { "Content-Type": "application/json" }) => {
+			ApiData: async (url, metodo = "GET", body = "", tipo, headers) => {
 				const store = getStore();
 				if (metodo == "GET") {
 					const dataApi = await fetch(uri + url, {
@@ -54,15 +55,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			getMessage: () => {
-				// fetching data from the backend
-				fetch(process.env.BACKEND_URL + "/api/hello")
-					.then(resp => resp.json())
-					.then(data => setStore({ message: data.message }))
-					.catch(error => console.log("Error loading message from backend", error));
-			},
 			fetchUsers: async () => {
-				const url = "https://proyectofinal-hierbabuena.herokuapp.com/api/user/";
+				const url = uri + "/user/";
 				const config = {
 					method: "GET",
 					headers: {
@@ -83,7 +77,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						password: newPassword
 					})
 				};
-				fetch("https://proyectofinal-hierbabuena.herokuapp.com/api/user/" + id.toString(), requestOptions)
+				fetch(uri + "user/" + id.toString(), requestOptions)
 					.then(response => response.json())
 					.then(data => {});
 			},

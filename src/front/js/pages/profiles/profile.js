@@ -6,7 +6,7 @@ export const Profile = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div>
+		<div className="container-fluid">
 			<div className="input-group my-3">
 				<input
 					type="text"

@@ -25,7 +25,7 @@ export const RecoverPassword = () => {
 				}
 				var password = newVal;
 				var newPassword = "";
-				var id = index + 1;
+				var id = item.id;
 
 				emailjs
 					.send(
@@ -37,7 +37,6 @@ export const RecoverPassword = () => {
 					.then(
 						result => {
 							actions.updatePassword(newVal, id);
-							console.log(id);
 							alert("Enviamos su nueva contraseña");
 						},
 						error => {
@@ -52,7 +51,7 @@ export const RecoverPassword = () => {
 	}
 
 	return (
-		<div className="p-4">
+		<div className="p-4 container-fluid">
 			<form onSubmit={sendEmail}>
 				<h3>Recuperar contraseña</h3>
 

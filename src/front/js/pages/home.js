@@ -10,7 +10,7 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="text-center">
+		<div className="text-center container-fluid">
 			<div className="box">
 				<img id="landingimg1" src={landingimg1} />
 				<Link to="/Products" className="link">

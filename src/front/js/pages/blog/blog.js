@@ -7,7 +7,7 @@ export const Blog = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div>
+		<div className="container-fluid">
 			<Carousel className="mx-3 my-3">
 				<Carousel.Item>
 					<img

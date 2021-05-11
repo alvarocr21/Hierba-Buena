@@ -12,7 +12,6 @@ export const ContactUs = () => {
 
 		emailjs.sendForm("service_mo73zxq", "template_contact", e.target, "user_EHqhSNy90W83VPfCk2Zm2").then(
 			result => {
-				console.log(result.text);
 				alert("le agradecemos por su mensaje");
 			},
 			error => {
@@ -24,7 +23,7 @@ export const ContactUs = () => {
 	}
 
 	return (
-		<div className="p-4">
+		<div className="container-fluid">
 			<form onSubmit={sendEmail}>
 				<h3>Contáctenos</h3>
 

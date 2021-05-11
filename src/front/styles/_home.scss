@@ -34,9 +34,11 @@ body {
 .container .btn:hover {
   background-color: black;
 }
-@media screen and (min-width: 1025px) {
-       .h-100 {
-    padding-left: 14vh;
-    padding-right: 14vh;
-  }
+
+
+@media screen and (min-width: 769px) {
+.container-fluid{
+    padding-left:25vh;
+    padding-right:25vh;
+}
     }

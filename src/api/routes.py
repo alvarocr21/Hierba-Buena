@@ -2,15 +2,18 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from api.models import db, User, Provincia, Canton, Distrito,Perfil,Producto,Perfil_Producto
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token
 
-api = Blueprint('api', __name__)
+api = Blueprint('api',__name__)
 CORS(api)
+
+
+
 
 #obtener todos los usuarios
 @api.route('/user', methods=['GET'])
@@ -143,8 +146,8 @@ def login():
         #Validando password usuario
         if result["is_active"]==True:
             if __verify_password(result["password"],request_body["password"]):
-                acces_token = create_access_token(identity=result["id"])
-                return json_respuestas({"Bienvenido "+result["name"]+" "+ result["lastname",token:acces_token]},200)
+                acces_token = create_access_token(identity=user.id)
+                return json_respuestas({"message":"Bienvenido "+result["name"]+" "+ result["lastname"],"token":acces_token},200)
             else:
                 return json_respuestas("Las credenciales son incorrectas",400)
         else:

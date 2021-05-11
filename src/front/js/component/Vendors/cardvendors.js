@@ -23,10 +23,10 @@ export const Cardvendors = props => {
 				</div>
 			</div>
 		</div>
-    );
-    };
+	);
+};
 
-    Cardvendors.propTypes = {
+Cardvendors.propTypes = {
 	FotoPerfil: PropTypes.string,
 	NombreVendor: PropTypes.string
 };

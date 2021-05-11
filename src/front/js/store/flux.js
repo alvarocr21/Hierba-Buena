@@ -1,6 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	//const uri = "https://proyectofinal-hierbabuena.herokuapp.com/api/";
-	const uri = "https://3001-maroon-boa-3ooyep13.ws-us04.gitpod.io/api/";
+	const uri = "https://hierbabuenacr.herokuapp.com/api/";
+	//const uri = "https://3001-maroon-boa-3ooyep13.ws-us04.gitpod.io/api/";
 	return {
 		store: {
 			Users: [],

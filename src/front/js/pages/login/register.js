@@ -20,8 +20,7 @@ export const Register = () => {
 			name: name,
 			lastname: lastName
 		};
-		//const uri = "https://proyectofinal-hierbabuena.herokuapp.com/api/";
-		const uri = "https://3001-maroon-boa-3ooyep13.ws-us04.gitpod.io/api/";
+		const uri = "https://hierbabuenacr.herokuapp.com/api/";
 
 		fetch(uri + "user", {
 			method: "POST",

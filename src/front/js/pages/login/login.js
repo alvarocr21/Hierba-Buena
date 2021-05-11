@@ -16,9 +16,9 @@ export const Login = () => {
 			email: email,
 			password: password
 		};
-		//const uri="https://proyectofinal-hierbabuena.herokuapp.com/api"
-		const uri = "https://3001-maroon-boa-3ooyep13.ws-us04.gitpod.io/api";
-		fetch(uri + "/login", {
+
+		const uri = "https://hierbabuenacr.herokuapp.com/api/";
+		fetch(uri + "login", {
 			method: "POST",
 			body: JSON.stringify(body),
 			headers: {

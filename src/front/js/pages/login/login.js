@@ -31,7 +31,7 @@ export const Login = () => {
 				return resp.json();
 			})
 			.then(data => {
-				alert(data.message);
+				alert(data.message.message);
 			})
 			.catch(err => console.log(err));
 	};

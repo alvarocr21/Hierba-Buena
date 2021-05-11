@@ -21,8 +21,8 @@ app.url_map.strict_slashes = False
 jwt = JWTManager(app)
 
 # database condiguration
-if os.getenv("DATABASE_URL") is not None:
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+if os.getenv("HEROKU_POSTGRESQL_COPPER_URL") is not None:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('HEROKU_POSTGRESQL_COPPER_URL')
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
 

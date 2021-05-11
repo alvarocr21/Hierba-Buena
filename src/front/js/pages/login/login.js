@@ -36,7 +36,7 @@ export const Login = () => {
 	};
 
 	return (
-		<div className="p-4">
+		<div className="p-4 container-fluid">
 			<form onSubmit={handleSubmit}>
 				<h3>Inicio sesión</h3>
 

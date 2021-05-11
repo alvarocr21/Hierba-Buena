@@ -38,7 +38,7 @@ export const CreateProfile = () => {
 	};
 
 	return (
-		<div>
+		<div className="container-fluid">
 			<div className="text-center mt-5">
 				<form>
 					<div className="row">

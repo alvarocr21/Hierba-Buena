@@ -49,6 +49,10 @@ export const Navbar = () => {
 				<div className="line" />
 				<div className="line" />
 			</div>
+
+			<span className="navbar-brand" id="CarShopping">
+				<i className=" fas fa-shopping-cart" />
+			</span>
 			<ul className={"nav-links " + openClass}>
 				{" "}
 				<li className={fadeClass}>
@@ -111,6 +115,11 @@ export const Navbar = () => {
 							<img className="icon" src={logout} />
 						</span>
 					</Link>
+				</li>
+				<li>
+					<span className="navbar-brand mb-0 h1" id="CarShoppingDesktop">
+						<i className=" fas fa-shopping-cart " />
+					</span>
 				</li>
 			</ul>
 		</nav>

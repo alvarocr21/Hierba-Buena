@@ -57,10 +57,42 @@ padding-left: 2.5vh;
 vertical-align: baseline;
 }
   .icon{
-    height: 4vh;
-    padding-left: 2vh;
+    height: 2rem;
+    padding-left: 0.4rem;
+}
+
+.small-cart{
+
+    font-size:1rem;
 }
 @media screen and (max-width: 768px) {
+
+      #CarShopping {
+
+    color: white;
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    right: 20%;
+    top: 50%;
+    transform: translate(-5%, -50%);
+    z-index: 2;
+
+}
+
+.fa-shopping-cart{
+    font-size:3vh;
+    text-shadow: -1px -3px 8px $green;
+}
+
+ #CarShoppingDesktop {
+
+    display:none;
+ }
+
+ .fa-shopping-cart{
+     font-weight:100px;
+ }
   .line {
     width: 30px;
     height: 3px;
@@ -132,8 +164,29 @@ vertical-align: baseline;
     opacity: 1 !important;
   }
 }
-@media screen and (min-width: 1025px) {
+
+
+@media screen and (min-width: 769px) {
        li {
     opacity: 1 !important;
   }
+
+      #CarShopping {
+
+ display:none;
+
+  
+}
+
+    #CarShoppingDesktop {
+color:white;
+margin-left:4rem;
+margin-right:4rem;
+  
+}
+
+.fa-shopping-cart{
+    font-size:2rem;
+    text-shadow: 3px 3px 16px $green;
+}
     }

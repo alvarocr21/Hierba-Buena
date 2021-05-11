@@ -51,7 +51,7 @@ export const RecoverPassword = () => {
 	}
 
 	return (
-		<div className="p-4">
+		<div className="p-4 container-fluid">
 			<form onSubmit={sendEmail}>
 				<h3>Recuperar contraseña</h3>
 

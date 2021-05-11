@@ -38,7 +38,7 @@ export const Register = () => {
 	};
 
 	return (
-		<div className="p-4">
+		<div className="p-4 container-fluid">
 			<form onSubmit={handleSubmit}>
 				<h3>Registrarse</h3>
 

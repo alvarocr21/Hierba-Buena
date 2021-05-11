@@ -12,8 +12,6 @@ export const BuyProducts = () => {
 		<div className="container-fluid">
 			<SearchProducts />
 			<CardBuyProducts />
-			<CardBuyProducts />
-			<CardBuyProducts />
 
 			<Link to="/Products">
 				<button className="btn btn-success float-right ">Regresar</button>

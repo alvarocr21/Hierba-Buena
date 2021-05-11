@@ -1,5 +1,6 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	const uri = "https://proyectofinal-hierbabuena.herokuapp.com/api/";
+	//const uri = "https://proyectofinal-hierbabuena.herokuapp.com/api/";
+	const uri = "https://3001-maroon-boa-3ooyep13.ws-us04.gitpod.io/api/";
 	return {
 		store: {
 			Users: [],
@@ -55,7 +56,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			fetchUsers: async () => {
-				const url = "https://proyectofinal-hierbabuena.herokuapp.com/api/user/";
+				const url = uri + "/user/";
 				const config = {
 					method: "GET",
 					headers: {
@@ -76,7 +77,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						password: newPassword
 					})
 				};
-				fetch("https://proyectofinal-hierbabuena.herokuapp.com/api/user/" + id.toString(), requestOptions)
+				fetch(uri + "user/" + id.toString(), requestOptions)
 					.then(response => response.json())
 					.then(data => {});
 			},

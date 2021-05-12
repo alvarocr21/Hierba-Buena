@@ -42,12 +42,11 @@ def get_user(user_id):
 
 #registrar un usuario
 @api.route('/user', methods=['POST'])
-@jwt_required()
+
 def add_user():
 
     request_body = request.get_json()
-    #Obtener id usuario
-    current_user_id= get_jwt_identity()
+    
 
     #Validando existencia de campos importantes
     if 'name' not in request_body or request_body["name"]=="":
@@ -421,28 +420,28 @@ def add_perfil():
 
     request_body = request.get_json()
     #Obtener id usuario
-    current_user_id= get_jwt_identity()
-
+    current_user_id = get_jwt_identity()
+    #print(current_user_id)
     #Validando existencia de campos importantes
-    if 'id_user' not in request_body or current_user_id =="":
-        return json_respuestas('Se debe especificar un usuario', 400,'error','error')
+    if current_user_id =="":
+        return json_respuestas('Se debe especificar un usuario', 400,'error')
     elif 'id_provincia' not in request_body or request_body["id_provincia"]=="":
-        return json_respuestas('Se debe especificar una provincia', 400,'error','error')
+        return json_respuestas('Se debe especificar una provincia', 400,'error')
     elif 'id_canton' not in request_body or request_body["id_canton"]=="":
-        return json_respuestas('Se debe especificar un cantón', 400,'error','error')
+        return json_respuestas('Se debe especificar un cantón', 400,'error')
     elif 'id_distrito' not in request_body or request_body["id_distrito"]=="":
-        return json_respuestas('Se debe especificar un distrito', 400,'error','error')
+        return json_respuestas('Se debe especificar un distrito', 400,'error')
     elif 'phone' not in request_body or request_body["phone"]=="":
-        return json_respuestas('Se debe especificar un telefono', 400,'error','error')
+        return json_respuestas('Se debe especificar un telefono', 400,'error')
     elif 'coberturaKm' not in request_body or request_body["coberturaKm"]=="":
-        return json_respuestas('Se debe especificar una cobertura en Kilometros', 400,'error','error')
+        return json_respuestas('Se debe especificar una cobertura en Kilometros', 400,'error')
     elif 'foto_perfil' not in request_body or request_body["foto_perfil"]=="":
-        return json_respuestas('Se debe especificar una foto de perfil', 400,'error','error')
+        return json_respuestas('Se debe especificar una foto de perfil', 400,'error')
     elif 'coordenadas' not in request_body or request_body["coordenadas"]=="":
-        return json_respuestas('Se debe especificar una ubicación', 400,'error','error')
+        return json_respuestas('Se debe especificar una ubicación', 400,'error')
     
     if esNumero(request_body["coberturaKm"])==False:
-        return json_respuestas('Solo se pueden digitar números en la cobertura Km', 400,'error','error')
+        return json_respuestas('Solo se pueden digitar números en la cobertura Km', 400,'error')
   
     #Almacenando el usuario
     perfil = Perfil(id_user=current_user_id,id_provincia=request_body["id_provincia"],id_canton=request_body["id_canton"],id_distrito=request_body["id_distrito"],phone=request_body["phone"],coberturaKm=request_body["coberturaKm"],foto_perfil=request_body["foto_perfil"],coordenadas=request_body["coordenadas"])

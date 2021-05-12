@@ -46,7 +46,9 @@ def get_user(user_id):
 def add_user():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'name' not in request_body or request_body["name"]=="":
         return json_respuestas('Se debe especificar un Nombre', 400,'error')
@@ -81,6 +83,8 @@ def update_user(user_id):
     request_body = request.get_json()
 
     user = User.query.get(user_id)
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
 
     if user is None:
         return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
@@ -191,7 +195,9 @@ def get_provincia(provincia_id):
 def add_provincia():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'name' not in request_body:
         return json_respuestas('Se debe especificar un Nombre', 400,'error')
@@ -214,6 +220,8 @@ def add_provincia():
 def update_provincia(provincia_id):
 
     request_body = request.get_json()
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
 
     provincia = Provincia.query.get(provincia_id)
     if provincia is None:
@@ -265,7 +273,9 @@ def get_canton(canton_id):
 def add_canton():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'name' not in request_body:
         return json_respuestas('Se debe especificar un Nombre', 400,'error')
@@ -337,7 +347,9 @@ def get_distrito(distrito_id):
 def add_distrito():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'name' not in request_body:
         return json_respuestas('Se debe especificar un Nombre', 400,'error','error')
@@ -358,6 +370,8 @@ def add_distrito():
 def update_distrito(distrito_id):
 
     request_body = request.get_json()
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
 
     distrito = Distrito.query.get(distrito_id)
     if distrito is None:
@@ -406,9 +420,11 @@ def get_perfil(perfil_id):
 def add_perfil():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
-    if 'id_user' not in request_body or request_body["id_user"]=="":
+    if 'id_user' not in request_body or current_user_id =="":
         return json_respuestas('Se debe especificar un usuario', 400,'error','error')
     elif 'id_provincia' not in request_body or request_body["id_provincia"]=="":
         return json_respuestas('Se debe especificar una provincia', 400,'error','error')
@@ -429,7 +445,7 @@ def add_perfil():
         return json_respuestas('Solo se pueden digitar números en la cobertura Km', 400,'error','error')
   
     #Almacenando el usuario
-    perfil = Perfil(id_user=request_body["id_user"],id_provincia=request_body["id_provincia"],id_canton=request_body["id_canton"],id_distrito=request_body["id_distrito"],phone=request_body["phone"],coberturaKm=request_body["coberturaKm"],foto_perfil=request_body["foto_perfil"],coordenadas=request_body["coordenadas"])
+    perfil = Perfil(id_user=current_user_id,id_provincia=request_body["id_provincia"],id_canton=request_body["id_canton"],id_distrito=request_body["id_distrito"],phone=request_body["phone"],coberturaKm=request_body["coberturaKm"],foto_perfil=request_body["foto_perfil"],coordenadas=request_body["coordenadas"])
     db.session.add(perfil)
     db.session.commit()
    
@@ -445,6 +461,9 @@ def update_perfil(perfil_id):
     if perfil is None:
         return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
   
+  #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
       
     #Validando existencia de campos importantes
     if 'id_user' in request_body:
@@ -504,7 +523,9 @@ def get_producto(producto_id):
 def add_producto():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'name' not in request_body or request_body["name"]=="":
         return json_respuestas('Se debe especificar un nombre', 400,'error')
@@ -528,6 +549,8 @@ def update_producto(producto_id):
     producto = Producto.query.get(producto_id)
     if producto is None:
         return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
 
     #Validando existencia de campos importantes
     if 'name' in request_body:
@@ -571,6 +594,9 @@ def get_perfil_producto(perfil_producto_id):
 def add_perfil_producto():
     request_body = request.get_json()
     
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'id_perfil' not in request_body or request_body["id_perfil"]=="":
         return json_respuestas('Se debe especificar un perfil', 400,'error')
@@ -596,6 +622,9 @@ def add_perfil_producto():
 @jwt_required()
 def update_perfil_producto(perfil_producto_id):
     request_body = request.get_json()
+
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
 
     producto_perfil = Perfil_Producto.query.get(perfil_producto_id)
     if producto_perfil is None:
@@ -653,6 +682,5 @@ def json_respuestas(mensaje,codigo,tipo="mensaje"):
         return jsonify({"error":mensaje}), codigo
     else:
         return jsonify({"Data":mensaje}), codigo
-
 
 

@@ -7,9 +7,13 @@ import { SearchProducts } from "../../component/Products/searchProducts";
 
 export const Products = () => {
 	const { store, actions } = useContext(Context);
-
+	const body = {
+		email: "alvarocr21@gmail.com",
+		password: "12345"
+	};
 	useEffect(() => {
 		actions.ApiData("producto", "GET", "", "productos");
+		actions.ApiData("login", "POST", body, "login");
 	}, []);
 
 	let arrayProducto = store.Productos;

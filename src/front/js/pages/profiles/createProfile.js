@@ -38,15 +38,15 @@ export const CreateProfile = () => {
 	// 		console.log(item.distrito);
 	// 	});
 	// });
-	let tempArray = []; //almacena todos los objetos dentro de un arreglo
-	const arrayProvincia = store.Provincias;
-	const arrayCanton = {
-		canton: arrayProvincia.canton
-	};
-	tempArray.push(arrayCanton.canton); //mete los objetos dentro del arreglo
-	console.log(arrayProvincia.name);
-	console.log(arrayCanton);
-	console.log(tempArray);
+	// let tempArray = []; //almacena todos los objetos dentro de un arreglo
+	// const arrayProvincia = store.Provincias;
+	// const arrayCanton = {
+	// 	canton: arrayProvincia.canton
+	// };
+	// tempArray.push(arrayCanton.canton); //mete los objetos dentro del arreglo
+	// console.log(arrayProvincia.name);
+	// console.log(arrayCanton);
+	// console.log(tempArray);
 
 	// tempArray.map((item, index) => {
 	// 	console.log(item);
@@ -138,19 +138,32 @@ export const CreateProfile = () => {
 							<div className="form-row">
 								<div className="form-group col-md-4">
 									<label>Provincia</label>
-									<select name="provincia" id="provincia" className="form-control">
+									<select
+										name="provincia"
+										id="provincia"
+										className="form-control"
+										onChange={e => setProvincia(e.target.value)}>
+										<option value="">Seleccion...</option>
 										<option value="1">San Jose</option>
+										<option value="2">Alajuela</option>
 									</select>
 								</div>
 								<div className="form-group col-md-4">
 									<label>Cantón</label>
-									<select name="canton" id="canton" className="form-control">
+									<select
+										name="canton"
+										id="canton"
+										className="form-control"
+										onChange={e => setCanton(e.target.value)}>
+										<option value="">Seleccion...</option>
 										<option value="1">Central</option>
+										<option value="2">Goicoechea</option>
 									</select>
 								</div>
 								<div className="form-group col-md-4">
 									<label>Distrito</label>
 									<select name="distrito" id="distrito" className="form-control">
+										<option value="">Seleccion...</option>
 										<option value="1">Hospital</option>
 									</select>
 								</div>

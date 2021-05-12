@@ -3,12 +3,33 @@ import { Redirect } from "react-router-dom";
 import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+toast.configure();
 export const Login = () => {
 	const { store, actions } = useContext(Context);
 	const [email, setEmail] = useState([]);
 	const [password, setPassword] = useState([]);
 	const [auth, setAuth] = useState(false);
+	//const[mensaje,setMensaje] = useState("");
+
+	const notify = (mensaje, estado) => {
+		//toast(mensaje,{position: toast.POSITION.BOTTOM_CENTER})
+		if (estado == "pass") {
+			toast.success(mensaje, {
+				position: toast.POSITION.TOP_CENTER
+			});
+		} else if (estado == "fail") {
+			toast.error(mensaje, {
+				position: toast.POSITION.TOP_LEFT
+			});
+		} else {
+			toast.info(mensaje, {
+				position: toast.POSITION.BOTTOM_CENTER
+			});
+		}
+	};
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -16,25 +37,34 @@ export const Login = () => {
 			email: email,
 			password: password
 		};
+		let cuerpo = JSON.stringify(body);
 
-		const uri = "https://hierbabuenacr.herokuapp.com/api/";
-		fetch(uri + "login", {
-			method: "POST",
-			body: JSON.stringify(body),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(resp => {
-				setAuth(resp.ok);
-				actions.login(resp.ok);
-				return resp.json();
-			})
-			.then(data => {
-				alert(data.message);
-			})
-			.catch(err => console.log(err));
+		actions.ApiData("user", "GET", "", "users");
+
+		actions.ApiData("login", "POST", cuerpo, "login");
+
+		// const uri = "https://hierbabuenacr.herokuapp.com/api/";
+		// fetch(uri + "login", {
+		// 	method: "POST",
+		// 	body: JSON.stringify(body),
+		// 	headers: {
+		// 		"Content-Type": "application/json"
+		// 	}
+		// })
+		// 	.then(resp => {
+		// 		setAuth(resp.ok);
+		// 		actions.login(resp.ok);
+		// 		return resp.json();
+		// 	})
+		// 	.then(data => {
+		// 		notify(data.message.message, "pass");
+		// 	})
+		// 	.catch(err => {
+		// 		notify("Las credenciales son incorrectas", "fail");
+		// 	});
 	};
+
+	console.log(store.mensaje);
 
 	return (
 		<div className="p-4 container-fluid">

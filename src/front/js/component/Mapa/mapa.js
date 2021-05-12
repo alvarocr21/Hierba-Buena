@@ -36,6 +36,7 @@ export const Mapa = () => {
 
 	const [markers, setMarkers] = useState([]);
 	const [selected, setSelected] = useState(null);
+
 	const onMapClick = useCallback(event => {
 		setMarkers(current => [
 			...current,

@@ -40,8 +40,7 @@ export const Login = () => {
 		let cuerpo = JSON.stringify(body);
 
 		actions.ApiData("user", "GET", "", "users");
-
-		actions.ApiData("login", "POST", cuerpo, "login");
+actions.ApiData("login", "POST", cuerpo, "login");
 
 		// const uri = "https://hierbabuenacr.herokuapp.com/api/";
 		// fetch(uri + "login", {

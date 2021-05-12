@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e7971530bfa0
+Revision ID: 06627f3bf845
 Revises: 
-Create Date: 2021-05-12 01:12:58.986613
+Create Date: 2021-05-12 01:51:43.195188
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e7971530bfa0'
+revision = '06627f3bf845'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('producto',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=20), nullable=False),
-    sa.Column('photo', sa.Text(), nullable=False),
+    sa.Column('photo', sa.String(length=20), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('provincia',
@@ -64,8 +64,8 @@ def upgrade():
     sa.Column('id_distrito', sa.Integer(), nullable=True),
     sa.Column('phone', sa.String(length=20), nullable=False),
     sa.Column('coberturaKm', sa.Numeric(), nullable=False),
-    sa.Column('foto_perfil', sa.Text(), nullable=False),
-    sa.Column('coordenadas', sa.Text(), nullable=False),
+    sa.Column('foto_perfil', sa.String(length=20), nullable=False),
+    sa.Column('coordenadas', sa.String(length=20), nullable=False),
     sa.ForeignKeyConstraint(['id_canton'], ['canton.id'], ),
     sa.ForeignKeyConstraint(['id_distrito'], ['distrito.id'], ),
     sa.ForeignKeyConstraint(['id_provincia'], ['provincia.id'], ),

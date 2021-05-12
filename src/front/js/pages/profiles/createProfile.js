@@ -1,15 +1,38 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../../store/appContext";
+import { Redirect } from "react-router-dom";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
 import { Mapa } from "../../component/Mapa/mapa";
 import perfilImg from "../../../img/perfil_default.jpg";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const CreateProfile = () => {
 	const { store, actions } = useContext(Context);
+	const [perfil, setPerfil] = useState(false);
+
 	useEffect(() => {
-		actions.ApiData("provincia/1", "GET", "", "provincias", { "Content-Type": "application/json" });
+		actions.ApiData("provincia/1", "GET", "", "provincias", {
+			"Content-Type": "application/json"
+		});
 	}, []);
+
+	const notify = (mensaje, estado) => {
+		if (estado == "pass") {
+			toast.success(mensaje, {
+				position: toast.POSITION.TOP_CENTER
+			});
+		} else if (estado == "fail") {
+			toast.error(mensaje, {
+				position: toast.POSITION.TOP_LEFT
+			});
+		} else {
+			toast.info(mensaje, {
+				position: toast.POSITION.BOTTOM_CENTER
+			});
+		}
+	};
 
 	const [imgName, setImgName] = useState("Elija la imagen");
 	const [baseImage, setBaseImage] = useState(perfilImg);
@@ -28,6 +51,40 @@ export const CreateProfile = () => {
 		width: "18rem"
 	};
 
+	const handleSubmit = e => {
+		e.preventDefault();
+		const body = {
+			id_provincia: provincia,
+			id_canton: canton,
+			id_distrito: distrito,
+			phone: telefono,
+			coberturaKm: coberturaKm,
+			foto_perfil: baseImage,
+			coordenadas: "coordenadas"
+		};
+		const token = localStorage.getItem("jwt-token");
+
+		const uri = "https://hierbabuenacr.herokuapp.com/api/";
+		fetch(uri + "perfil", {
+			method: "POST",
+			body: JSON.stringify(body),
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bear " + token,
+				"Access-Control-Allow-Origin": "*"
+			}
+		})
+			.then(resp => {
+				return resp.json();
+			})
+			.then(data => {
+				notify(data.message.message, "pass");
+			})
+			.catch(err => {
+				notify("Los datos no se pudieron almacenar", "fail");
+			});
+	};
+
 	/*Traerse todos los valore*/
 	// let arrayProvincia = store.Provincias;
 	// let arrayCanton = arrayProvincia[0];
@@ -38,15 +95,15 @@ export const CreateProfile = () => {
 	// 		console.log(item.distrito);
 	// 	});
 	// });
-	let tempArray = []; //almacena todos los objetos dentro de un arreglo
-	const arrayProvincia = store.Provincias;
-	const arrayCanton = {
-		canton: arrayProvincia.canton
-	};
-	tempArray.push(arrayCanton.canton); //mete los objetos dentro del arreglo
-	console.log(arrayProvincia.name);
-	console.log(arrayCanton);
-	console.log(tempArray);
+	// let tempArray = []; //almacena todos los objetos dentro de un arreglo
+	// const arrayProvincia = store.Provincias;
+	// const arrayCanton = {
+	// 	canton: arrayProvincia.canton
+	// };
+	// tempArray.push(arrayCanton.canton); //mete los objetos dentro del arreglo
+	// console.log(arrayProvincia.name);
+	// console.log(arrayCanton);
+	// console.log(tempArray);
 
 	// tempArray.map((item, index) => {
 	// 	console.log(item);
@@ -88,7 +145,7 @@ export const CreateProfile = () => {
 	return (
 		<div className="container-fluid">
 			<div className="text-center mt-5">
-				<form>
+				<form onSubmit={handleSubmit}>
 					<div className="row">
 						<div className="col">
 							<div className="form-row">
@@ -99,7 +156,6 @@ export const CreateProfile = () => {
 										className="form-control"
 										id="input_nombre"
 										onChange={e => setNombre(e.target.value)}
-										value={nombre}
 									/>
 								</div>
 								<div className="form-group col-md-6">
@@ -109,7 +165,6 @@ export const CreateProfile = () => {
 										className="form-control"
 										id="input_apellido"
 										onChange={e => setApellido(e.target.value)}
-										value={apellido}
 									/>
 								</div>
 
@@ -120,7 +175,6 @@ export const CreateProfile = () => {
 										className="form-control"
 										id="input_email"
 										onChange={e => setEmail(e.target.value)}
-										value={email}
 									/>
 								</div>
 								<div className="form-group col-md-6">
@@ -131,27 +185,49 @@ export const CreateProfile = () => {
 										id="input_telefono"
 										placeholder=""
 										onChange={e => setTelefono(e.target.value)}
-										value={telefono}
 									/>
 								</div>
 							</div>
 							<div className="form-row">
 								<div className="form-group col-md-4">
 									<label>Provincia</label>
-									<select name="provincia" id="provincia" className="form-control">
+									<select
+										name="provincia"
+										id="provincia"
+										className="form-control"
+										onChange={e => setProvincia(e.target.value)}>
+										<option value="">Select...</option>
 										<option value="1">San Jose</option>
+										<option value="2">Alajuela</option>
+										<option value="3">Cartago</option>
+										<option value="4">Heredia</option>
+										<option value="5">Puntarenas</option>
+										<option value="6">Guanacaste</option>
+										<option value="7">Limón</option>
 									</select>
 								</div>
 								<div className="form-group col-md-4">
 									<label>Cantón</label>
-									<select name="canton" id="canton" className="form-control">
+									<select
+										name="canton"
+										id="canton"
+										className="form-control"
+										onChange={e => setCanton(e.target.value)}>
+										<option value="">Select...</option>
 										<option value="1">Central</option>
+										<option value="2">El Llano</option>
 									</select>
 								</div>
 								<div className="form-group col-md-4">
 									<label>Distrito</label>
-									<select name="distrito" id="distrito" className="form-control">
+									<select
+										name="distrito"
+										id="distrito"
+										className="form-control"
+										onChange={e => setDistrito(e.target.value)}>
+										<option value="">Select...</option>
 										<option value="1">Hospital</option>
+										<option value="2">Colón</option>
 									</select>
 								</div>
 								<div className="form-group col-12">
@@ -162,7 +238,6 @@ export const CreateProfile = () => {
 										id="inputAddress2"
 										placeholder=""
 										onChange={e => setDireccion(e.target.value)}
-										value={direccion}
 									/>
 								</div>
 								<div className="form-group col-md-2">
@@ -172,7 +247,6 @@ export const CreateProfile = () => {
 										className="form-control"
 										id="inputZip"
 										onChange={e => setCoberturaKm(e.target.value)}
-										value={coberturaKm}
 									/>
 								</div>
 							</div>
@@ -205,13 +279,14 @@ export const CreateProfile = () => {
 							<label className="custom-file-label d-flex justify-content-start">{imgName}</label>
 						</div>
 					</div>
-				</form>
-				<Mapa />
-				<Link to="/profile">
+
+					<Mapa />
+
 					<button type="submit" className="btn btn-primary">
 						Crear Perfil
 					</button>
-				</Link>
+				</form>
+				{perfil ? <Redirect to="/profile" /> : null}
 			</div>
 		</div>
 	);

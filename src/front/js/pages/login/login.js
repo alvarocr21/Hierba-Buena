@@ -12,10 +12,8 @@ export const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [auth, setAuth] = useState(false);
-	//const[mensaje,setMensaje] = useState("");
 
 	const notify = (mensaje, estado) => {
-		//toast(mensaje,{position: toast.POSITION.BOTTOM_CENTER})
 		if (estado == "pass") {
 			toast.success(mensaje, {
 				position: toast.POSITION.TOP_CENTER
@@ -55,7 +53,6 @@ export const Login = () => {
 			.then(data => {
 				notify(data.message.message, "pass");
 				localStorage.setItem("jwt-token", data.message.token);
-				console.log(data.message.token);
 			})
 			.catch(err => {
 				notify("Las credenciales son incorrectas", "fail");

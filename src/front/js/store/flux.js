@@ -1,6 +1,5 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	const uri = "https://hierbabuenacr.herokuapp.com/api/";
-	//const uri = "https://3001-maroon-boa-3ooyep13.ws-us04.gitpod.io/api/";
 	return {
 		store: {
 			Users: [],
@@ -10,14 +9,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			Canton: [],
 			Distrito: [],
 			Perfil_Producto: [],
-			mensaje: [],
+			mensaje: {},
 			fotoPro: "",
 			nombre: "",
 			inicioSesion: false
 		},
 		actions: {
-			ApiData: async (url, metodo = "GET", body = "", tipo, headers) => {
+			ApiData: async (url, metodo, body, tipo) => {
 				const store = getStore();
+				const headers = { "Content-type": "application/json" };
 				if (metodo == "GET") {
 					const dataApi = await fetch(uri + url, {
 						method: metodo,

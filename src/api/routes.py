@@ -17,6 +17,7 @@ CORS(api)
 
 #obtener todos los usuarios
 @api.route('/user', methods=['GET'])
+@jwt_required()
 def get_users():
 
     # get all the user
@@ -30,6 +31,7 @@ def get_users():
 
 #obtener un usuario
 @api.route('/user/<int:user_id>', methods=['GET'])
+@jwt_required()
 def get_user(user_id):
     user = User.query.get(user_id)
     if user is None:
@@ -40,6 +42,7 @@ def get_user(user_id):
 
 #registrar un usuario
 @api.route('/user', methods=['POST'])
+@jwt_required()
 def add_user():
 
     request_body = request.get_json()
@@ -73,6 +76,7 @@ def add_user():
 
 #Actualizar un usuario
 @api.route('/user/<int:user_id>', methods=['PUT'])
+@jwt_required()
 def update_user(user_id):
     request_body = request.get_json()
 
@@ -108,6 +112,7 @@ def update_user(user_id):
 
 #Eliminar un usuario
 @api.route('/user/<int:user_id>', methods=['DELETE'])
+@jwt_required()
 def delete_user(user_id):
     user = User.query.get(user_id)
 
@@ -182,6 +187,7 @@ def get_provincia(provincia_id):
 
 #registrar una provincia
 @api.route('/provincia', methods=['POST'])
+@jwt_required()
 def add_provincia():
 
     request_body = request.get_json()
@@ -204,6 +210,7 @@ def add_provincia():
 
 #actualizar una provincia
 @api.route('/provincia/<int:provincia_id>', methods=['PUT'])
+@jwt_required()
 def update_provincia(provincia_id):
 
     request_body = request.get_json()
@@ -254,6 +261,7 @@ def get_canton(canton_id):
 
 #registrar una canton
 @api.route('/canton', methods=['POST'])
+@jwt_required()
 def add_canton():
 
     request_body = request.get_json()
@@ -278,6 +286,7 @@ def add_canton():
 
 #actualizar una canton
 @api.route('/canton/<int:canton_id>', methods=['PUT'])
+@jwt_required()
 def update_canton(canton_id):
 
     request_body = request.get_json()
@@ -324,6 +333,7 @@ def get_distrito(distrito_id):
 
 #registrar un distrito
 @api.route('/distrito', methods=['POST'])
+@jwt_required()
 def add_distrito():
 
     request_body = request.get_json()
@@ -344,6 +354,7 @@ def add_distrito():
 
 #actualizar una distrito
 @api.route('/distrito/<int:distrito_id>', methods=['PUT'])
+@jwt_required()
 def update_distrito(distrito_id):
 
     request_body = request.get_json()
@@ -391,6 +402,7 @@ def get_perfil(perfil_id):
 
 #registrar un perfil
 @api.route('/perfil', methods=['POST'])
+@jwt_required()
 def add_perfil():
 
     request_body = request.get_json()
@@ -425,6 +437,7 @@ def add_perfil():
 
 #actualizar un perfil
 @api.route('/perfil/<int:perfil_id>', methods=['PUT'])
+@jwt_required()
 def update_perfil(perfil_id):
     request_body = request.get_json()
 
@@ -487,6 +500,7 @@ def get_producto(producto_id):
 
 #registrar un producto
 @api.route('/producto', methods=['POST'])
+@jwt_required()
 def add_producto():
 
     request_body = request.get_json()
@@ -507,6 +521,7 @@ def add_producto():
 
 #actualizar un producto
 @api.route('/producto/<int:producto_id>', methods=['PUT'])
+@jwt_required()
 def update_producto(producto_id):
     request_body = request.get_json()
 
@@ -552,6 +567,7 @@ def get_perfil_producto(perfil_producto_id):
 
 #Ingresar un Producto_Perfil
 @api.route('/perfil_producto',methods=['POST'])
+@jwt_required()
 def add_perfil_producto():
     request_body = request.get_json()
     
@@ -577,6 +593,7 @@ def add_perfil_producto():
 
 #Actualizar un Producto_Perfil
 @api.route('/perfil_producto/<int:perfil_producto_id>',methods=['PUT'])
+@jwt_required()
 def update_perfil_producto(perfil_producto_id):
     request_body = request.get_json()
 

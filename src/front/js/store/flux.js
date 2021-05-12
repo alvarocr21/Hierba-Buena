@@ -47,7 +47,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: headers
 					});
 					const json = await dataApi.json();
-					setStore({ mensaje: json });
+
+					const mensajeArray = Object.keys(json);
+
+					if (mensajeArray[0] == "message") {
+						setStore({ mensaje: json.message });
+					} else {
+						setStore({ mensaje: json });
+					}
 				}
 			},
 			// Use getActions to call a function within a fuction

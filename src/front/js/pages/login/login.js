@@ -9,8 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 export const Login = () => {
 	const { store, actions } = useContext(Context);
-	const [email, setEmail] = useState([]);
-	const [password, setPassword] = useState([]);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	const [auth, setAuth] = useState(false);
 	//const[mensaje,setMensaje] = useState("");
 
@@ -37,34 +37,30 @@ export const Login = () => {
 			email: email,
 			password: password
 		};
-		let cuerpo = JSON.stringify(body);
+		const cuerpo = JSON.stringify(body);
 
-		actions.ApiData("user", "GET", "", "users");
-
-		actions.ApiData("login", "POST", cuerpo, "login");
-
-		// const uri = "https://hierbabuenacr.herokuapp.com/api/";
-		// fetch(uri + "login", {
-		// 	method: "POST",
-		// 	body: JSON.stringify(body),
-		// 	headers: {
-		// 		"Content-Type": "application/json"
-		// 	}
-		// })
-		// 	.then(resp => {
-		// 		setAuth(resp.ok);
-		// 		actions.login(resp.ok);
-		// 		return resp.json();
-		// 	})
-		// 	.then(data => {
-		// 		notify(data.message.message, "pass");
-		// 	})
-		// 	.catch(err => {
-		// 		notify("Las credenciales son incorrectas", "fail");
-		// 	});
+		const uri = "https://hierbabuenacr.herokuapp.com/api/";
+		fetch(uri + "login", {
+			method: "POST",
+			body: JSON.stringify(body),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => {
+				setAuth(resp.ok);
+				actions.login(resp.ok);
+				return resp.json();
+			})
+			.then(data => {
+				notify(data.message.message, "pass");
+				localStorage.setItem("jwt-token", data.message.token);
+				console.log(data.message.token);
+			})
+			.catch(err => {
+				notify("Las credenciales son incorrectas", "fail");
+			});
 	};
-
-	console.log(store.mensaje);
 
 	return (
 		<div className="p-4 container-fluid">

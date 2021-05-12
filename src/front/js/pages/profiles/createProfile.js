@@ -53,7 +53,15 @@ export const CreateProfile = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		const body = {
+		const token = localStorage.getItem("jwt-token");
+
+		const uri = "https://hierbabuenacr.herokuapp.com/api/";
+
+		let myHeaders = new Headers();
+		myHeaders.append("Authorization", "Bearer " + token);
+		myHeaders.append("Content-Type", "application/json");
+
+		let raw = JSON.stringify({
 			id_provincia: provincia,
 			id_canton: canton,
 			id_distrito: distrito,
@@ -61,27 +69,26 @@ export const CreateProfile = () => {
 			coberturaKm: coberturaKm,
 			foto_perfil: baseImage,
 			coordenadas: "coordenadas"
-		};
-		const token = localStorage.getItem("jwt-token");
+		});
 
-		const uri = "https://hierbabuenacr.herokuapp.com/api/";
-		fetch(uri + "perfil", {
+		let requestOptions = {
 			method: "POST",
-			body: JSON.stringify(body),
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bear " + token,
-				"Access-Control-Allow-Origin": "*"
-			}
-		})
-			.then(resp => {
-				return resp.json();
+			headers: myHeaders,
+			body: raw,
+			redirect: "follow"
+		};
+
+		fetch(uri + "perfil", requestOptions)
+			.then(response => response.text())
+			.then(result => {
+				console.log(JSON.parse(result));
+				let dato = JSON.parse(result);
+				console.log(dato.message);
+				notify(dato.message, "pass");
 			})
-			.then(data => {
-				notify(data.message.message, "pass");
-			})
-			.catch(err => {
-				notify("Los datos no se pudieron almacenar", "fail");
+			.catch(error => {
+				notify(error, "fail");
+				console.log("error", error);
 			});
 	};
 

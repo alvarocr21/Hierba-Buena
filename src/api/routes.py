@@ -5,13 +5,11 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from api.models import db, User, Provincia, Canton, Distrito,Perfil,Producto,Perfil_Producto
 from api.utils import generate_sitemap, APIException
-from flask_cors import CORS
+#from flask_cors import CORS
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
 
 api = Blueprint('api',__name__)
-CORS(api)
-
 
 
 

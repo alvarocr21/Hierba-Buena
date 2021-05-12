@@ -95,7 +95,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			logout: () => {
 				setStore({ inicioSesion: false });
-				alert("Su sesión ha finalizado");
+				return "Su sesión ha finalizado";
 			}
 		}
 	};

@@ -9,9 +9,28 @@ import user from "../../img/navbar/user-xxl.png";
 import editUser from "../../img/navbar/edit-user-xxl.png";
 import note from "../../img/navbar/note-2-xxl.png";
 import contact from "../../img/navbar/business-contact-xxl.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 	const [menuDisplay, setMenuDisplay] = useState(false);
+
+	const notify = (mensaje, estado) => {
+		if (estado == "pass") {
+			toast.success(mensaje, {
+				position: toast.POSITION.TOP_CENTER
+			});
+		} else if (estado == "fail") {
+			toast.error(mensaje, {
+				position: toast.POSITION.TOP_LEFT
+			});
+		} else {
+			toast.info(mensaje, {
+				position: toast.POSITION.BOTTOM_CENTER
+			});
+		}
+	};
 
 	let fadeClass = undefined;
 	let openClass = undefined;
@@ -109,7 +128,7 @@ export const Navbar = () => {
 							className="navbar-brand mb-0 h1"
 							onClick={() => {
 								setMenuDisplay(!menuDisplay);
-								actions.logout();
+								notify(actions.logout(), "info");
 							}}>
 							Cerrar sesión
 							<img className="icon" src={logout} />

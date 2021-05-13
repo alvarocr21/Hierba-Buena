@@ -12,9 +12,14 @@ export const Products = () => {
 		actions.ApiData("producto", "GET", "", "productos");
 	}, []);
 
-	let arrayProducto = store.Productos;
+	let arrayProducto = [];
+	if (store.buscaActiva == true) {
+		arrayProducto = store.BuscarProductos;
+	} else {
+		arrayProducto = store.Productos;
+	}
 
-	console.log(arrayProducto);
+	//console.log(arrayProducto);
 
 	return (
 		<div className="container-fluid">

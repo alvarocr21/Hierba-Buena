@@ -1,9 +1,14 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	const uri = "https://hierbabuenacr.herokuapp.com/api/";
+	const token = localStorage.getItem("jwt-token");
 	return {
 		store: {
 			Users: [],
 			Productos: [],
+			BuscarProductos: [],
+			buscaActiva: false,
+			BuscarPerfiles: [],
+			buscaPerfilActiva: false,
 			Perfiles: [],
 			Provincias: [],
 			Canton: [],
@@ -55,6 +60,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} else {
 						setStore({ mensaje: json });
 					}
+				}
+			},
+
+			ArrayUsers: arreglo => {
+				const store = getStore();
+				setStore({ Perfiles: arreglo });
+				console.log(store.Perfiles);
+			},
+
+			BuscarProducto: nombre => {
+				const store = getStore();
+				setStore({ BuscarProductos: [] });
+				const data = store.Productos;
+				let datosFiltrados = data.filter(function(producto, index) {
+					return producto.name.toLowerCase().indexOf(nombre.toLowerCase()) > -1;
+				});
+				if (datosFiltrados.length > 0) {
+					setStore({ BuscarProductos: datosFiltrados });
+					setStore({ buscaActiva: true });
+				} else {
+					setStore({ buscaActiva: false });
+				}
+			},
+
+			BuscarVendor: nombre => {
+				const store = getStore();
+				setStore({ BuscarPerfiles: [] });
+				const data = store.Perfiles;
+				let datosFiltrados = data.filter(function(vendedor, index) {
+					return (
+						(vendedor.name.toLowerCase() + " " + vendedor.lastname.toLowerCase()).indexOf(
+							nombre.toLowerCase()
+						) > -1
+					);
+				});
+				if (datosFiltrados.length > 0) {
+					setStore({ BuscarPerfiles: datosFiltrados });
+					setStore({ buscaPerfilActiva: true });
+				} else {
+					setStore({ buscaPerfilActiva: false });
 				}
 			},
 

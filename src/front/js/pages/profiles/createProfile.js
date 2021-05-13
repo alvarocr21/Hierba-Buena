@@ -7,15 +7,18 @@ import { Mapa } from "../../component/Mapa/mapa";
 import perfilImg from "../../../img/perfil_default.jpg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import jwt_decode from "jwt-decode";
 
 export const CreateProfile = () => {
 	const { store, actions } = useContext(Context);
 	const [perfil, setPerfil] = useState(false);
+	const uri = "https://hierbabuenacr.herokuapp.com/api/";
+	const token = localStorage.getItem("jwt-token");
+	const decoded = jwt_decode(token);
+	const sub = decoded.sub;
 
 	useEffect(() => {
-		actions.ApiData("provincia/1", "GET", "", "provincias", {
-			"Content-Type": "application/json"
-		});
+		cargaUser();
 	}, []);
 
 	const notify = (mensaje, estado) => {
@@ -51,11 +54,30 @@ export const CreateProfile = () => {
 		width: "18rem"
 	};
 
+	const cargaUser = () => {
+		let myHeaders = new Headers();
+		myHeaders.append("Authorization", "Bearer " + token);
+		myHeaders.append("Content-Type", "application/json");
+
+		const requestOptions = {
+			method: "GET",
+			headers: myHeaders,
+			redirect: "follow"
+		};
+
+		fetch("https://hierbabuenacr.herokuapp.com/api/user/" + sub, requestOptions)
+			.then(response => response.text())
+			.then(result => {
+				let dato = JSON.parse(result);
+				setNombre(dato.Data.name);
+				setApellido(dato.Data.lastname);
+				setEmail(dato.Data.email);
+			})
+			.catch(error => console.log("error", error));
+	};
+
 	const handleSubmit = e => {
 		e.preventDefault();
-		const token = localStorage.getItem("jwt-token");
-
-		const uri = "https://hierbabuenacr.herokuapp.com/api/";
 
 		let myHeaders = new Headers();
 		myHeaders.append("Authorization", "Bearer " + token);
@@ -85,6 +107,7 @@ export const CreateProfile = () => {
 				let dato = JSON.parse(result);
 				console.log(dato.message);
 				notify(dato.message, "pass");
+				setPerfil(true);
 			})
 			.catch(error => {
 				notify(error, "fail");
@@ -162,7 +185,8 @@ export const CreateProfile = () => {
 										type="text"
 										className="form-control"
 										id="input_nombre"
-										onChange={e => setNombre(e.target.value)}
+										value={nombre}
+										disabled
 									/>
 								</div>
 								<div className="form-group col-md-6">
@@ -171,7 +195,8 @@ export const CreateProfile = () => {
 										type="text"
 										className="form-control"
 										id="input_apellido"
-										onChange={e => setApellido(e.target.value)}
+										value={apellido}
+										disabled
 									/>
 								</div>
 
@@ -181,7 +206,8 @@ export const CreateProfile = () => {
 										type="text"
 										className="form-control"
 										id="input_email"
-										onChange={e => setEmail(e.target.value)}
+										value={email}
+										disabled
 									/>
 								</div>
 								<div className="form-group col-md-6">

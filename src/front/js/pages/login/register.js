@@ -3,6 +3,8 @@ import { Context } from "../../store/appContext";
 import { Redirect } from "react-router-dom";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const Register = () => {
 	const { store, actions } = useContext(Context);
@@ -11,6 +13,22 @@ export const Register = () => {
 	const [email, setEmail] = useState([]);
 	const [password, setPassword] = useState([]);
 	const [auth, setAuth] = useState(false);
+
+	const notify = (mensaje, estado) => {
+		if (estado == "pass") {
+			toast.success(mensaje, {
+				position: toast.POSITION.TOP_CENTER
+			});
+		} else if (estado == "fail") {
+			toast.error(mensaje, {
+				position: toast.POSITION.TOP_LEFT
+			});
+		} else {
+			toast.info(mensaje, {
+				position: toast.POSITION.BOTTOM_CENTER
+			});
+		}
+	};
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -33,8 +51,12 @@ export const Register = () => {
 				setAuth(resp.ok);
 				return resp.json();
 			})
-			.then(data => alert(data.message))
-			.catch(err => console.log(err));
+			.then(data => {
+				notify(data.message, "pass");
+			})
+			.catch(err => {
+				notify(err, "fail");
+			});
 	};
 
 	return (

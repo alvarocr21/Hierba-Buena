@@ -14,7 +14,6 @@ export const CardProducts = props => {
 
 				<div className="card-body">
 					<h5 className="card-title">{props.nombreProducto}</h5>
-					<p className="card-text">Tomate Primera Calidad</p>
 
 					<Link to="/BuyProducts">
 						<a className="btn btn-success float-right ">Comprar</a>

@@ -1,5 +1,5 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	const uri = "https://proyectofinal-hierbabuena.herokuapp.com/api/";
+	const uri = "https://hierbabuenacr.herokuapp.com/api/";
 	return {
 		store: {
 			Users: [],
@@ -9,13 +9,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			Canton: [],
 			Distrito: [],
 			Perfil_Producto: [],
-			mensaje: [],
+			mensaje: {},
 			fotoPro: "",
-			nombre: ""
+			nombre: "",
+			inicioSesion: false
 		},
 		actions: {
-			ApiData: async (url, metodo = "GET", body = "", tipo, headers = { "Content-Type": "application/json" }) => {
+			ApiData: async (url, metodo, body, tipo) => {
 				const store = getStore();
+				const headers = { "Content-type": "application/json" };
 				if (metodo == "GET") {
 					const dataApi = await fetch(uri + url, {
 						method: metodo,
@@ -45,23 +47,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: headers
 					});
 					const json = await dataApi.json();
-					setStore({ mensaje: json });
+
+					const mensajeArray = Object.keys(json);
+
+					if (mensajeArray[0] == "message") {
+						setStore({ mensaje: json.message });
+					} else {
+						setStore({ mensaje: json });
+					}
 				}
 			},
+
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
 
-			getMessage: () => {
-				// fetching data from the backend
-				fetch(process.env.BACKEND_URL + "/api/hello")
-					.then(resp => resp.json())
-					.then(data => setStore({ message: data.message }))
-					.catch(error => console.log("Error loading message from backend", error));
-			},
 			fetchUsers: async () => {
-				const url = "https://3001-chocolate-puffin-krew1knw.ws-us03.gitpod.io/api/user/";
+				const url = uri + "/user/";
 				const config = {
 					method: "GET",
 					headers: {
@@ -70,7 +73,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 				const response = await fetch(url, config);
 				const json = await response.json();
-				console.log(">>Data", json.Data);
 				setStore({ userList: json.Data });
 			},
 			updatePassword: (newPassword, id) => {
@@ -83,14 +85,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 						password: newPassword
 					})
 				};
-				fetch(
-					"https://3001-chocolate-puffin-krew1knw.ws-us03.gitpod.io/api/user/" + id.toString(),
-					requestOptions
-				)
+				fetch(uri + "user/" + id.toString(), requestOptions)
 					.then(response => response.json())
-					.then(data => {
-						console.log(id);
-					});
+					.then(data => {});
+			},
+			login: resp => {
+				const store = getStore();
+				resp ? setStore({ inicioSesion: true }) : null;
+			},
+			logout: () => {
+				setStore({ inicioSesion: false });
+				alert("Su sesión ha finalizado");
 			}
 		}
 	};

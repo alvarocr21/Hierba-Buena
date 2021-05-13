@@ -2,18 +2,22 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from api.models import db, User, Provincia, Canton, Distrito,Perfil,Producto,Perfil_Producto
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
 
-api = Blueprint('api', __name__)
+api = Blueprint('api',__name__)
 CORS(api)
+
+
 
 
 #obtener todos los usuarios
 @api.route('/user', methods=['GET'])
+@jwt_required()
 def get_users():
 
     # get all the user
@@ -27,39 +31,42 @@ def get_users():
 
 #obtener un usuario
 @api.route('/user/<int:user_id>', methods=['GET'])
+@jwt_required()
 def get_user(user_id):
     user = User.query.get(user_id)
     if user is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404,'error')
     result = user.serialize()
     return json_respuestas(result,200,"data")
 
 
 #registrar un usuario
 @api.route('/user', methods=['POST'])
+
 def add_user():
 
     request_body = request.get_json()
     
+
     #Validando existencia de campos importantes
     if 'name' not in request_body or request_body["name"]=="":
-        return json_respuestas('Se debe especificar un Nombre', 400)
+        return json_respuestas('Se debe especificar un Nombre', 400,'error')
     elif 'lastname' not in request_body or request_body["lastname"]=="":
-        return json_respuestas('Se debe especificar un Apellido', 400)
+        return json_respuestas('Se debe especificar un Apellido', 400,'error')
     elif 'email' not in request_body or request_body["email"]=="":
-        return json_respuestas('Se debe especificar un email', 400)
+        return json_respuestas('Se debe especificar un email', 400,'error')
     elif 'password' not in request_body or request_body["password"]=="":
-        return json_respuestas('Se debe especificar un password', 400)
+        return json_respuestas('Se debe especificar un password', 400,'error')
     
     #Validando email correcto
     email_validate= email_valid(request_body["email"])
     if email_validate == False:
-        return json_respuestas('La estructura del email no es la correcta', 400) 
+        return json_respuestas('La estructura del email no es la correcta', 400,'error') 
 
     #Validando email existente
     email_exist = User.query.filter_by(email = request_body["email"]).first()
     if email_exist is not None:
-        return json_respuestas('El correo ya existe en nuestra base de datos', 400) 
+        return json_respuestas('El correo ya existe en nuestra base de datos', 400,'error') 
 
     #Almacenando el usuario
     user = User(name=request_body["name"],lastname=request_body["lastname"],email=request_body["email"],password=__create_password(User,request_body["password"]),is_active=True)
@@ -70,13 +77,16 @@ def add_user():
 
 #Actualizar un usuario
 @api.route('/user/<int:user_id>', methods=['PUT'])
+@jwt_required()
 def update_user(user_id):
     request_body = request.get_json()
 
     user = User.query.get(user_id)
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
 
     if user is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
     #Actualizando campos ingresados
     if 'name' in request_body:
         user.name = request_body["name"]
@@ -88,11 +98,11 @@ def update_user(user_id):
         #Validando email correcto
         email_validate= email_valid(request_body["email"])
         if email_validate == False:
-            return json_respuestas('La estructura del email no es la correcta', 400)
+            return json_respuestas('La estructura del email no es la correcta', 400,'error')
         #Validando email existente
         email_exist = User.query.filter_by(email = request_body["email"]).first()
         if email_exist is not None:
-            return json_respuestas('El correo ya existe en nuestra base de datos', 400)
+            return json_respuestas('El correo ya existe en nuestra base de datos', 400,'error')
        
         user.email = request_body["email"]
     
@@ -105,11 +115,12 @@ def update_user(user_id):
 
 #Eliminar un usuario
 @api.route('/user/<int:user_id>', methods=['DELETE'])
+@jwt_required()
 def delete_user(user_id):
     user = User.query.get(user_id)
 
     if user is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
 
     user.is_active = False
     db.session.commit()
@@ -124,14 +135,14 @@ def login():
 
     #Validando existencia de campos importantes
     if 'email' not in request_body:
-        return json_respuestas('Se debe especificar un email', 400)
+        return json_respuestas('Se debe especificar un email', 400,'error')
     if 'password' not in request_body:
-        return json_respuestas('Se debe especificar un password', 400)
+        return json_respuestas('Se debe especificar un password', 400,'error')
     
     #Validando email correcto
     email_validate= email_valid(request_body["email"])
     if email_validate == False:
-        return json_respuestas('La estructura del email no es la correcta', 400)
+        return json_respuestas('La estructura del email no es la correcta', 400,'error')
 
     #Obtenemos el valor de password de la BD
     user = User.query.filter_by(email = request_body["email"]).first()
@@ -143,13 +154,14 @@ def login():
         #Validando password usuario
         if result["is_active"]==True:
             if __verify_password(result["password"],request_body["password"]):
-                return json_respuestas("Bienvenido "+result["name"]+" "+ result["lastname"],200)
+                acces_token = create_access_token(identity=user.id)
+                return json_respuestas({"message":"Bienvenido "+result["name"]+" "+ result["lastname"],"token":acces_token},200)
             else:
-                return json_respuestas("Las credenciales son incorrectas",400)
+                return json_respuestas("Las credenciales son incorrectas",400,'error')
         else:
-            return json_respuestas("El usuario se encuentra inactivo",400)
+            return json_respuestas("El usuario se encuentra inactivo",400,'error')
     else:
-        return json_respuestas("Las credenciales son incorrectas",400)
+        return json_respuestas("Las credenciales son incorrectas",400,'error')
 
 # obtener todas las provincias
 @api.route('/provincia', methods=['GET'])
@@ -169,7 +181,7 @@ def get_provincia(provincia_id):
     provincia = Provincia.query.get(provincia_id)
     #Existe provincia
     if provincia is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404,'error')
 
     result = provincia.serialize()
 
@@ -178,18 +190,21 @@ def get_provincia(provincia_id):
 
 #registrar una provincia
 @api.route('/provincia', methods=['POST'])
+@jwt_required()
 def add_provincia():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'name' not in request_body:
-        return json_respuestas('Se debe especificar un Nombre', 400)
+        return json_respuestas('Se debe especificar un Nombre', 400,'error')
     
     #Validando provincia existente
     provincia_exist = Provincia.query.filter_by(name = request_body["name"]).first()
     if provincia_exist is not None:
-        return json_respuestas('La provincia ya existe en nuestra base de datos', 400) 
+        return json_respuestas('La provincia ya existe en nuestra base de datos', 400,'error') 
 
     #Almacenando el usuario
     provincia = Provincia(name=request_body["name"])
@@ -200,18 +215,21 @@ def add_provincia():
 
 #actualizar una provincia
 @api.route('/provincia/<int:provincia_id>', methods=['PUT'])
+@jwt_required()
 def update_provincia(provincia_id):
 
     request_body = request.get_json()
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
 
     provincia = Provincia.query.get(provincia_id)
     if provincia is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
   
   #Validando provincia existente
     provincia_exist = Provincia.query.filter_by(name = request_body["name"]).first()
     if provincia_exist is not None:
-        return json_respuestas('La provincia ya existe en nuestra base de datos', 400) 
+        return json_respuestas('La provincia ya existe en nuestra base de datos', 400,'error') 
     
     #Validando existencia de campos importantes
     if 'name' in request_body:
@@ -241,7 +259,7 @@ def get_canton(canton_id):
     canton = Canton.query.get(canton_id)
     #Existe canton
     if canton is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404,'error')
 
     result = canton.serialize()
 
@@ -250,20 +268,23 @@ def get_canton(canton_id):
 
 #registrar una canton
 @api.route('/canton', methods=['POST'])
+@jwt_required()
 def add_canton():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'name' not in request_body:
-        return json_respuestas('Se debe especificar un Nombre', 400)
+        return json_respuestas('Se debe especificar un Nombre', 400,'error')
     if 'id_provincia' not in request_body:
-        return json_respuestas('Se debe especificar un la provincia a la que pertenece', 400)
+        return json_respuestas('Se debe especificar un la provincia a la que pertenece', 400,'error')
     
     #Validando canton existente
     canton_exist = Canton.query.filter_by(name = request_body["name"]).first()
     if canton_exist is not None:
-        return json_respuestas('El cantón ya existe en nuestra base de datos', 400) 
+        return json_respuestas('El cantón ya existe en nuestra base de datos', 400,'error') 
 
     #Almacenando el usuario
     canton = Canton(name=request_body["name"],id_provincia=request_body["id_provincia"])
@@ -274,13 +295,14 @@ def add_canton():
 
 #actualizar una canton
 @api.route('/canton/<int:canton_id>', methods=['PUT'])
+@jwt_required()
 def update_canton(canton_id):
 
     request_body = request.get_json()
 
     canton = Canton.query.get(canton_id)
     if canton is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
   
       
     #Validando existencia de campos importantes
@@ -312,7 +334,7 @@ def get_distrito(distrito_id):
     distrito = Distrito.query.get(distrito_id)
     #Existe distrito
     if distrito is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404,'error','error')
 
     result = distrito.serialize()
 
@@ -320,15 +342,18 @@ def get_distrito(distrito_id):
 
 #registrar un distrito
 @api.route('/distrito', methods=['POST'])
+@jwt_required()
 def add_distrito():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'name' not in request_body:
-        return json_respuestas('Se debe especificar un Nombre', 400)
+        return json_respuestas('Se debe especificar un Nombre', 400,'error','error')
     if 'id_canton' not in request_body:
-        return json_respuestas('Se debe especificar el canton al que pertenece', 400)
+        return json_respuestas('Se debe especificar el canton al que pertenece', 400,'error','error')
     
  
     #Almacenando el distrito
@@ -340,13 +365,16 @@ def add_distrito():
 
 #actualizar una distrito
 @api.route('/distrito/<int:distrito_id>', methods=['PUT'])
+@jwt_required()
 def update_distrito(distrito_id):
 
     request_body = request.get_json()
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
 
     distrito = Distrito.query.get(distrito_id)
     if distrito is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error','error')
   
       
     #Validando existencia de campos importantes
@@ -378,7 +406,7 @@ def get_perfil(perfil_id):
     perfil = Perfil.query.get(perfil_id)
     #Existe distrito
     if perfil is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404,'error','error')
 
     result = perfil.serialize()
 
@@ -387,33 +415,36 @@ def get_perfil(perfil_id):
 
 #registrar un perfil
 @api.route('/perfil', methods=['POST'])
+@jwt_required()
 def add_perfil():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id = get_jwt_identity()
+    #print(current_user_id)
     #Validando existencia de campos importantes
-    if 'id_user' not in request_body or request_body["id_user"]=="":
-        return json_respuestas('Se debe especificar un usuario', 400)
+    if current_user_id =="":
+        return json_respuestas('Se debe especificar un usuario', 400,'error')
     elif 'id_provincia' not in request_body or request_body["id_provincia"]=="":
-        return json_respuestas('Se debe especificar una provincia', 400)
+        return json_respuestas('Se debe especificar una provincia', 400,'error')
     elif 'id_canton' not in request_body or request_body["id_canton"]=="":
-        return json_respuestas('Se debe especificar un cantón', 400)
+        return json_respuestas('Se debe especificar un cantón', 400,'error')
     elif 'id_distrito' not in request_body or request_body["id_distrito"]=="":
-        return json_respuestas('Se debe especificar un distrito', 400)
+        return json_respuestas('Se debe especificar un distrito', 400,'error')
     elif 'phone' not in request_body or request_body["phone"]=="":
-        return json_respuestas('Se debe especificar un telefono', 400)
+        return json_respuestas('Se debe especificar un telefono', 400,'error')
     elif 'coberturaKm' not in request_body or request_body["coberturaKm"]=="":
-        return json_respuestas('Se debe especificar una cobertura en Kilometros', 400)
+        return json_respuestas('Se debe especificar una cobertura en Kilometros', 400,'error')
     elif 'foto_perfil' not in request_body or request_body["foto_perfil"]=="":
-        return json_respuestas('Se debe especificar una foto de perfil', 400)
+        return json_respuestas('Se debe especificar una foto de perfil', 400,'error')
     elif 'coordenadas' not in request_body or request_body["coordenadas"]=="":
-        return json_respuestas('Se debe especificar una ubicación', 400)
+        return json_respuestas('Se debe especificar una ubicación', 400,'error')
     
     if esNumero(request_body["coberturaKm"])==False:
-        return json_respuestas('Solo se pueden digitar números en la cobertura Km', 400)
+        return json_respuestas('Solo se pueden digitar números en la cobertura Km', 400,'error')
   
     #Almacenando el usuario
-    perfil = Perfil(id_user=request_body["id_user"],id_provincia=request_body["id_provincia"],id_canton=request_body["id_canton"],id_distrito=request_body["id_distrito"],phone=request_body["phone"],coberturaKm=request_body["coberturaKm"],foto_perfil=request_body["foto_perfil"],coordenadas=request_body["coordenadas"])
+    perfil = Perfil(id_user=current_user_id,id_provincia=request_body["id_provincia"],id_canton=request_body["id_canton"],id_distrito=request_body["id_distrito"],phone=request_body["phone"],coberturaKm=request_body["coberturaKm"],foto_perfil=request_body["foto_perfil"],coordenadas=request_body["coordenadas"])
     db.session.add(perfil)
     db.session.commit()
    
@@ -421,13 +452,17 @@ def add_perfil():
 
 #actualizar un perfil
 @api.route('/perfil/<int:perfil_id>', methods=['PUT'])
+@jwt_required()
 def update_perfil(perfil_id):
     request_body = request.get_json()
 
     perfil = Perfil.query.get(perfil_id)
     if perfil is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
   
+  #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
       
     #Validando existencia de campos importantes
     if 'id_user' in request_body:
@@ -448,7 +483,7 @@ def update_perfil(perfil_id):
         perfil.coordenadas = request_body["coordenadas"]
   
     if esNumero(request_body["coberturaKm"])==False:
-        return json_respuestas('Solo se pueden digitar números en la cobertura Km', 400)
+        return json_respuestas('Solo se pueden digitar números en la cobertura Km', 400,'error')
 
     db.session.commit()
     
@@ -474,7 +509,7 @@ def get_producto(producto_id):
     producto = Producto.query.get(producto_id)
     #Existe distrito
     if producto is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404,'error')
 
     result = producto.serialize()
 
@@ -483,15 +518,18 @@ def get_producto(producto_id):
 
 #registrar un producto
 @api.route('/producto', methods=['POST'])
+@jwt_required()
 def add_producto():
 
     request_body = request.get_json()
-    
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'name' not in request_body or request_body["name"]=="":
-        return json_respuestas('Se debe especificar un nombre', 400)
+        return json_respuestas('Se debe especificar un nombre', 400,'error')
     elif 'photo' not in request_body or request_body["photo"]=="":
-        return json_respuestas('Se debe agregar una foto', 400)
+        return json_respuestas('Se debe agregar una foto', 400,'error')
     
   
     #Almacenando el usuario
@@ -503,12 +541,15 @@ def add_producto():
 
 #actualizar un producto
 @api.route('/producto/<int:producto_id>', methods=['PUT'])
+@jwt_required()
 def update_producto(producto_id):
     request_body = request.get_json()
 
     producto = Producto.query.get(producto_id)
     if producto is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
 
     #Validando existencia de campos importantes
     if 'name' in request_body:
@@ -540,7 +581,7 @@ def get_perfil_producto(perfil_producto_id):
     perfil_producto = Perfil_Producto.query.get(perfil_producto_id)
     #Existe distrito
     if perfil_producto is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos ', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos ', 404,'error')
 
     result = perfil_producto.serialize()
 
@@ -548,21 +589,25 @@ def get_perfil_producto(perfil_producto_id):
 
 #Ingresar un Producto_Perfil
 @api.route('/perfil_producto',methods=['POST'])
+@jwt_required()
 def add_perfil_producto():
     request_body = request.get_json()
     
+    #Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     #Validando existencia de campos importantes
     if 'id_perfil' not in request_body or request_body["id_perfil"]=="":
-        return json_respuestas('Se debe especificar un perfil', 400)
+        return json_respuestas('Se debe especificar un perfil', 400,'error')
     elif 'id_producto' not in request_body or request_body["id_producto"]=="":
-        return json_respuestas('Se debe agregar un producto', 400)
+        return json_respuestas('Se debe agregar un producto', 400,'error')
     elif 'price' not in request_body or request_body["price"]=="":
-        return json_respuestas('Se debe agregar un precio', 400)
+        return json_respuestas('Se debe agregar un precio', 400,'error')
     elif 'detalle' not in request_body or request_body["detalle"]=="":
-        return json_respuestas('Se debe agregar un detalle', 400)
+        return json_respuestas('Se debe agregar un detalle', 400,'error')
     
     if esNumero(request_body["price"])==False:
-        return json_respuestas('Solo se pueden digitar números en el precio', 400)
+        return json_respuestas('Solo se pueden digitar números en el precio', 400,'error')
   
     #Almacenando el Producto_Perfil
     perfil_producto = Perfil_Producto(id_perfil=request_body["id_perfil"],id_producto=request_body["id_producto"],price=request_body["price"],detalle=request_body["detalle"])
@@ -573,12 +618,16 @@ def add_perfil_producto():
 
 #Actualizar un Producto_Perfil
 @api.route('/perfil_producto/<int:perfil_producto_id>',methods=['PUT'])
+@jwt_required()
 def update_perfil_producto(perfil_producto_id):
     request_body = request.get_json()
 
+#Obtener id usuario
+    current_user_id= get_jwt_identity()
+
     producto_perfil = Perfil_Producto.query.get(perfil_producto_id)
     if producto_perfil is None:
-        return json_respuestas('Este recurso no se encuentra en base de datos', 404)
+        return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')
         
     #Validando existencia de campos a actualizar
     if 'id_perfil' in request_body:
@@ -591,7 +640,7 @@ def update_perfil_producto(perfil_producto_id):
         producto_perfil.detalle = request_body["detalle"]
     
     if esNumero(request_body["price"])==False:
-        return json_respuestas('Solo se pueden digitar números en el precio', 400)
+        return json_respuestas('Solo se pueden digitar números en el precio', 400,'error')
   
     #Almacenando el usuario
     perfil_producto = Perfil_Producto(id_perfil=request_body["id_perfil"],id_producto=request_body["id_producto"],price=request_body["price"],detalle=request_body["detalle"])
@@ -628,8 +677,9 @@ def json_respuestas(mensaje,codigo,tipo="mensaje"):
 
     if tipo=="mensaje":
         return jsonify({"message":mensaje}), codigo
+    elif tipo=="error":
+        return jsonify({"error":mensaje}), codigo
     else:
         return jsonify({"Data":mensaje}), codigo
-
 
 

@@ -96,8 +96,14 @@ export const Home = () => {
 						<div className="col-md-4 diagramtext3">
 							<p id="diagramtext3">... y reciba sus productos frescos! </p>
 						</div>
-						<div className="col-md-4 diagramtext3">
-							<p>Ingrese a nuestra </p>
+						<div className="col-md-4 diagramtext2">
+							<p>
+								Ingrese a nuestra{" "}
+								<Link to="/Products" className="link">
+									{" "}
+									<button className="btn btn-success">tienda </button>
+								</Link>
+							</p>
 						</div>
 						<div className="col-md-4 diagramtext1">
 							<p id="diagramtext1">¡Apoye a sus agricultores locales!</p>

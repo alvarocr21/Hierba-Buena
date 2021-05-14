@@ -77,8 +77,8 @@ body {
 
 @media screen and (min-width: 1051px) {
 .container-fluid{
-    padding-left:25vh;
-    padding-right:25vh;
+    padding-left:25vh !important;
+    padding-right:25vh !important;
 }
 .mobileDiagramDiv{
     display:none;

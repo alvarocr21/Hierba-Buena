@@ -76,8 +76,6 @@ def update_user(user_id):
     request_body = request.get_json()
 
     user = User.query.get(user_id)
-#Obtener id usuario
-    current_user_id= get_jwt_identity()
 
     if user is None:
         return json_respuestas('Este recurso no se encuentra en base de datos', 404,'error')

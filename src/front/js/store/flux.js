@@ -25,7 +25,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			cantiCompra: 0,
 			id_perfil_producto: 0,
 			compras: [],
-			comprasCanti: 0
+			comprasCanti: 0,
+			userList: []
 		},
 		actions: {
 			ApiData: async (url, metodo, body, tipo) => {
@@ -166,11 +167,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						lastname: "Calvo Cruz",
-						name: "Jose Andres",
 						password: newPassword
-					})
+					}),
+					redirect: "follow"
 				};
+
 				fetch(uri + "user/" + id.toString(), requestOptions)
 					.then(response => response.json())
 					.then(data => {});

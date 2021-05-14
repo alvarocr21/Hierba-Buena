@@ -16,3 +16,14 @@
 @import "_cardBuyProducts.scss";
 
 @import "_cardvendors.scss";
+
+
+body{
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 768px) {
+html,body{
+    overflow-x: hidden;
+}
+}

@@ -23,7 +23,7 @@ export const ContactUs = () => {
 	}
 
 	return (
-		<div className="container-fluid">
+		<div className="container-fluid p-4">
 			<form onSubmit={sendEmail}>
 				<h3>Contáctenos</h3>
 

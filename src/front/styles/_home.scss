@@ -35,10 +35,104 @@ body {
   background-color: black;
 }
 
+#diagram{
+    width: 100%;
+}
+
+
+#frame {
+    position: relative;
+    width: 100%;
+    height: 35rem;
+    background-image: url(/landingHorizontalBackground.jpg);
+    background-position: center;
+    background-size: cover;
+    margin-top:-3rem;
+}
+
+#myImg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 11rem;
+    display: block;
+    margin: auto;
+    height: 12rem;
+}
+
+
 
 @media screen and (min-width: 769px) {
 .container-fluid{
     padding-left:25vh;
     padding-right:25vh;
 }
+.mobileDiagramDiv{
+    display:none;
+}
+
+#diagramtext1{
+     font-weight: bold;
+     float:right;
+     padding-right: 3rem;
+}
+
+.diagramtext2{
+ font-weight: bold;
+
+}
+#diagramtext3{
+   float:left;
+     font-weight: bold;
+     padding-left: 3rem;
+}
+    }
+
+    
+@media screen and (max-width: 768px) {
+
+#diagramMobile{
+width:100%;
+}
+
+.diagramtext1{
+    margin-top: 3rem;
+    margin-bottom: 14rem;
+    font-weight: bold;
+}
+.diagramtext2{
+    margin-bottom: 15rem;
+    font-weight: bold;
+}
+.diagramtext3{
+    font-weight: bold;
+}
+
+.diagramDiv{
+    display:none;
+}
+
+#frame {
+position: relative;
+    width: 100%;
+    height: 9rem;
+    background-image: url(/landingHorizontalBackground.jpg);
+    background-position: center;
+    background-size: cover;
+    margin-top: 4rem;
+    margin-bottom:2rem;
+}
+
+#myImg {
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    right: 0;
+    bottom: 8.5rem;
+    display: block;
+    margin: auto;
+    height: 4.5rem;
+}
+
     }

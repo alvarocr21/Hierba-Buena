@@ -11,6 +11,7 @@ import jwt_decode from "jwt-decode";
 
 export const CreateProfile = () => {
 	const { store, actions } = useContext(Context);
+
 	const [perfil, setPerfil] = useState(false);
 	const uri = "https://hierbabuenacr.herokuapp.com/api/";
 	const token = localStorage.getItem("jwt-token");

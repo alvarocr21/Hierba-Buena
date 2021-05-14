@@ -16,10 +16,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			Perfil_Producto: [],
 			mensaje: {},
 			fotoPro: "",
+			fotoVendor: "",
 			nombre: "",
+			precio: 0,
+			nombpro: "",
 			inicioSesion: false,
 			precioTotal: 0,
-			cantiCompra: 0
+			cantiCompra: 0,
+			id_perfil_producto: 0,
+			compras: [],
+			comprasCanti: 0
 		},
 		actions: {
 			ApiData: async (url, metodo, body, tipo) => {
@@ -109,6 +115,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				//setStore({ cantiCompra: cantidad });
 				setStore({ precioTotal: cantidad * precio });
+			},
+
+			ObtenerPerfil_Producto: id => {
+				const store = getStore();
+				setStore({ id_perfil_producto: id });
+			},
+
+			ActualizaFotos: (fpro, fven, nombre, precio) => {
+				const store = getStore();
+				setStore({ fotoPro: fpro });
+				setStore({ fotoVendor: fven });
+				setStore({ nombre: nombre });
+				setStore({ precio: precio });
+			},
+			NombreProducto: nombre => {
+				const store = getStore();
+				setStore({ nombpro: nombre });
+			},
+
+			AgregaCompra: objCompra => {
+				const store = getStore();
+				let arr = store.compras;
+				arr.push(objCompra);
+				setStore({ compras: arr });
+				let cantCompras = store.compras.length;
+				setStore({ comprasCanti: cantCompras });
+				//setStore({ compras: objCompra });
 			},
 
 			// Use getActions to call a function within a fuction

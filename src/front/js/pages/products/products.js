@@ -19,13 +19,20 @@ export const Products = () => {
 		arrayProducto = store.Productos;
 	}
 
-	//console.log(arrayProducto);
+	console.log(arrayProducto);
 
 	return (
 		<div className="container-fluid">
 			<SearchProducts />
 			{arrayProducto.map((item, index) => {
-				return <CardProducts fotoProducto={item.photo} nombreProducto={item.name} key={index} />;
+				return (
+					<CardProducts
+						fotoProducto={item.photo}
+						nombreProducto={item.name}
+						id_porducto={item.id}
+						key={index}
+					/>
+				);
 			})}
 		</div>
 	);

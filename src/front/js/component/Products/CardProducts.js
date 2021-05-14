@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 
 export const CardProducts = props => {
 	const { store, actions } = useContext(Context);
+	console.log(props.id_porducto);
 
 	return (
 		<div>
@@ -16,7 +17,14 @@ export const CardProducts = props => {
 					<h5 className="card-title">{props.nombreProducto}</h5>
 
 					<Link to="/BuyProducts">
-						<a className="btn btn-success float-right ">Comprar</a>
+						<a
+							className="btn btn-success float-right "
+							onClick={() => {
+								actions.ObtenerPerfil_Producto(props.id_porducto);
+								actions.NombreProducto(props.nombreProducto);
+							}}>
+							Comprar
+						</a>
 					</Link>
 				</div>
 			</div>
@@ -26,5 +34,6 @@ export const CardProducts = props => {
 
 CardProducts.propTypes = {
 	fotoProducto: PropTypes.string,
-	nombreProducto: PropTypes.string
+	nombreProducto: PropTypes.string,
+	id_porducto: PropTypes.number
 };

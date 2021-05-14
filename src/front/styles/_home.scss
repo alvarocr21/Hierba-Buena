@@ -61,12 +61,24 @@ body {
     height: 12rem;
 }
 
+#agricultor,  #hierbaTelefono{
+    width:100%
+}
+
+#downArrow{
+    width:70%
+}
+
+#receiving{
+    width:180%;
+    margin-left:-3rem;
+}
 
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 1051px) {
 .container-fluid{
-    padding-left:25vh;
-    padding-right:25vh;
+    padding-left:25vh !important;
+    padding-right:25vh !important;
 }
 .mobileDiagramDiv{
     display:none;
@@ -75,7 +87,7 @@ body {
 #diagramtext1{
      font-weight: bold;
      float:right;
-     padding-right: 3rem;
+    
 }
 
 .diagramtext2{
@@ -85,27 +97,27 @@ body {
 #diagramtext3{
    float:left;
      font-weight: bold;
-     padding-left: 3rem;
+
 }
     }
 
     
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1050px) {
 
 #diagramMobile{
 width:100%;
 }
 
 .diagramtext1{
-    margin-top: 3rem;
-    margin-bottom: 14rem;
+margin:auto;
     font-weight: bold;
 }
 .diagramtext2{
-    margin-bottom: 15rem;
+margin:auto;
     font-weight: bold;
 }
 .diagramtext3{
+    margin:auto;
     font-weight: bold;
 }
 

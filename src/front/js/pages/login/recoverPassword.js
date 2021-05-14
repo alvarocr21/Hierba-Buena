@@ -4,7 +4,9 @@ import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
+
 
 export const RecoverPassword = () => {
 	const { store, actions } = useContext(Context);
@@ -55,7 +57,11 @@ export const RecoverPassword = () => {
 					.then(
 						result => {
 							actions.updatePassword(newVal, id);
-							notify("Enviamos su nueva contraseña", "info");
+
+							toast.success("Enviamos su nueva contraseña", {
+							position: toast.POSITION.TOP_CENTER
+							});
+
 						},
 						error => {
 							console.log(error.text);

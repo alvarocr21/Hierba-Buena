@@ -31,7 +31,8 @@ export const RecoverPassword = () => {
 					.send(
 						"service_mo73zxq",
 						"template_recover",
-						{ newPassword: password, email: email },
+						{ newPassword: password,
+						email:email},
 						"user_EHqhSNy90W83VPfCk2Zm2"
 					)
 					.then(

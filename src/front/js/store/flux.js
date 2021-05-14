@@ -17,7 +17,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			mensaje: {},
 			fotoPro: "",
 			nombre: "",
-			inicioSesion: false
+			inicioSesion: false,
+			precioTotal: 0,
+			cantiCompra: 0
 		},
 		actions: {
 			ApiData: async (url, metodo, body, tipo) => {
@@ -101,6 +103,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} else {
 					setStore({ buscaPerfilActiva: false });
 				}
+			},
+
+			CalculaPreciototal: (cantidad, precio) => {
+				const store = getStore();
+				//setStore({ cantiCompra: cantidad });
+				setStore({ precioTotal: cantidad * precio });
 			},
 
 			// Use getActions to call a function within a fuction

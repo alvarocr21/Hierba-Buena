@@ -166,8 +166,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						lastname: "Calvo Cruz",
-						name: "Jose Andres",
 						password: newPassword
 					})
 				};

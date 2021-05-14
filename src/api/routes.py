@@ -38,7 +38,6 @@ def get_user(user_id):
 
 #registrar un usuario
 @api.route('/user', methods=['POST'])
-
 def add_user():
 
     request_body = request.get_json()
@@ -73,7 +72,6 @@ def add_user():
 
 #Actualizar un usuario
 @api.route('/user/<int:user_id>', methods=['PUT'])
-@jwt_required()
 def update_user(user_id):
     request_body = request.get_json()
 

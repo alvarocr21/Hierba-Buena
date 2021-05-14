@@ -150,7 +150,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			fetchUsers: async () => {
-				const url = uri + "/user/";
+				const url = uri + "user/";
 				const config = {
 					method: "GET",
 					headers: {

@@ -15,7 +15,6 @@ api = Blueprint('api',__name__)
 
 #obtener todos los usuarios
 @api.route('/user', methods=['GET'])
-@jwt_required()
 def get_users():
 
     # get all the user
@@ -29,7 +28,6 @@ def get_users():
 
 #obtener un usuario
 @api.route('/user/<int:user_id>', methods=['GET'])
-@jwt_required()
 def get_user(user_id):
     user = User.query.get(user_id)
     if user is None:

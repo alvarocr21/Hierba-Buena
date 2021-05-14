@@ -3,6 +3,7 @@ import { Context } from "../../store/appContext";
 import "../../../styles/_home.scss";
 import { Link } from "react-router-dom";
 import emailjs from "emailjs-com";
+import { toast } from "react-toastify";
 
 export const RecoverPassword = () => {
 	const { store, actions } = useContext(Context);
@@ -38,7 +39,9 @@ export const RecoverPassword = () => {
 					.then(
 						result => {
 							actions.updatePassword(newVal, id);
-							alert("Enviamos su nueva contraseña");
+							toast.success("Enviamos su nueva contraseña", {
+							position: toast.POSITION.TOP_CENTER
+							});
 						},
 						error => {
 							console.log(error.text);

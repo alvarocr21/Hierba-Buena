@@ -12,6 +12,7 @@ export const Register = () => {
 	const [lastName, setLastName] = useState([]);
 	const [email, setEmail] = useState([]);
 	const [password, setPassword] = useState([]);
+	const [confirmPassword, setConfirmPassword] = useState("");
 	const [auth, setAuth] = useState(false);
 
 	const notify = (mensaje, estado) => {
@@ -31,32 +32,41 @@ export const Register = () => {
 	};
 
 	const handleSubmit = e => {
-		e.preventDefault();
-		const body = {
-			email: email,
-			password: password,
-			name: name,
-			lastname: lastName
-		};
-		const uri = "https://hierbabuenacr.herokuapp.com/api/";
+		if (password == confirmPassword) {
+			e.preventDefault();
+			const body = {
+				email: email,
+				password: password,
+				name: name,
+				lastname: lastName
+			};
+			const uri = "https://hierbabuenacr.herokuapp.com/api/";
 
-		fetch(uri + "user", {
-			method: "POST",
-			body: JSON.stringify(body),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-			.then(resp => {
-				setAuth(resp.ok);
-				return resp.json();
+			fetch(uri + "user", {
+				method: "POST",
+				body: JSON.stringify(body),
+				headers: {
+					"Content-Type": "application/json"
+				}
 			})
-			.then(data => {
-				notify(data.message, "pass");
-			})
-			.catch(err => {
-				notify(err, "fail");
+				.then(resp => {
+					setAuth(resp.ok);
+					return resp.json();
+				})
+				.then(data => {
+					notify(data.message, "pass");
+				})
+				.catch(err => {
+					notify(err, "fail");
+				});
+		} else {
+			e.preventDefault();
+			toast.error("Las contraseñas deben coincidir", {
+				position: toast.POSITION.TOP
 			});
+
+			setPassword("");
+		}
 	};
 
 	return (
@@ -91,6 +101,7 @@ export const Register = () => {
 						type="email"
 						className="form-control"
 						placeholder="Ingrese su correo electrónico"
+						required="required"
 					/>
 				</div>
 
@@ -101,6 +112,19 @@ export const Register = () => {
 						type="password"
 						className="form-control"
 						placeholder="Ingrese su contraseña"
+						required="required"
+						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+						title="Su contraseña debe contener al menos un número, una letra mayúscula, una minúscula y al menos 8 caracteres"
+					/>
+				</div>
+
+				<div className="form-group">
+					<label>Confirmar contraseña</label>
+					<input
+						onChange={e => setConfirmPassword(e.target.value)}
+						type="password"
+						className="form-control"
+						placeholder="Confirme su contraseña"
 						required="required"
 					/>
 				</div>

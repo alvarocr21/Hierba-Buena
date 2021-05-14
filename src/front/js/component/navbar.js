@@ -71,6 +71,7 @@ export const Navbar = () => {
 
 			<span className="navbar-brand" id="CarShopping">
 				<i className=" fas fa-shopping-cart" />
+				<span className="badge badge-success ml-1">{store.comprasCanti}</span>
 			</span>
 			<ul className={"nav-links " + openClass}>
 				{" "}
@@ -138,6 +139,7 @@ export const Navbar = () => {
 				<li>
 					<span className="navbar-brand mb-0 h1" id="CarShoppingDesktop">
 						<i className=" fas fa-shopping-cart " />
+						<span className="badge badge-success ml-1">{store.comprasCanti}</span>
 					</span>
 				</li>
 			</ul>

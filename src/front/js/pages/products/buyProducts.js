@@ -10,7 +10,6 @@ export const BuyProducts = () => {
 
 	return (
 		<div className="container-fluid">
-			<SearchProducts />
 			<CardBuyProducts />
 
 			<Link to="/Products">

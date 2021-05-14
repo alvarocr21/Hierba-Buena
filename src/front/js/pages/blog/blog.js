@@ -17,7 +17,7 @@ export const Blog = () => {
 					/>
 					<Carousel.Caption />
 					<div className="mx-2 my-2">
-						<h1>El futuro toca a las puertas de la agricultura</h1>
+						<h3>El futuro toca a las puertas de la agricultura</h3>
 						<p>
 							“Aún no podemos comer chips o teléfonos, hemos cambiado muchísimas cosas, pero para
 							alimentarnos seguimos necesitando papas, camotes, cebollas, tomates, arroz y frijoles, para
@@ -27,12 +27,7 @@ export const Blog = () => {
 							hace cada vez más complejo por la reducción del espacio para cultivar, el cambio climático,
 							la necesidad de utilizar procesos de producción más sostenibles y las proyecciones sobre el
 							crecimiento que tendrá la población mundial en las próximas décadas.“Las estimaciones
-							mundiales son claras en ese sentido. Los rendimientos de la agricultura tienen
-							obligatoriamente que crecer en el mediano plazo para lograr enfrentar el incremento de la
-							población mundial, las fronteras agrícolas están cada vez más definidas, es decir el espacio
-							no va a aumentar más, lo que tiene que crecer es el rendimiento de la producción, es un reto
-							complejo sin duda alguna, pero todos los países tienen que buscar producir más en menos
-							espacio”
+							mundiales son claras en ese sentido.
 						</p>
 					</div>
 				</Carousel.Item>
@@ -45,8 +40,7 @@ export const Blog = () => {
 
 					<Carousel.Caption />
 					<div className="mx-2 my-2">
-						<h1>Más mercados de cercanía y menos intermediarios</h1>
-
+						<h3>Más mercados de cercanía y menos intermediarios</h3>
 						<p>
 							Para el director de la Escuela de Economía Agrícola y Agronegocios de la UCR, Mag. Enrique
 							Montenegro Hidalgo, el comercio electrónico es una excelente alternativa para los
@@ -56,13 +50,7 @@ export const Blog = () => {
 							nos está demostrando que el modelo que teníamos estaba mal y que en realidad tenemos que
 							apostar ahora por tener mercados de cercanía, acortar las cadenas de distribución y tener
 							menos intermediarios”. “Entre menos eslabones tengamos en la cadena todos se benefician. El
-							productor gana más y el consumidor paga menos”, acotó el especialista en economía
-							agrícola.Según estimaciones realizadas por el Consejo Nacional de Producción (CNP) en el año
-							2015, los productores primarios obtienen entre un 10 % y 30 % de margen de utilidad, la
-							agroindustria entre un 30 % y 45% y los intermediarios ganan hasta un 30 % o 50 % sobre el
-							valor del producto. A esto se suma que la mayor parte de la producción agropecuaria para
-							consumo local, alrededor del 70 %, es comercializada por dos grandes cadenas de
-							supermercados.
+							productor gana más y el consumidor paga menos”, acotó el especialista en economía agrícola.
 						</p>
 					</div>
 				</Carousel.Item>
@@ -75,8 +63,7 @@ export const Blog = () => {
 
 					<Carousel.Caption />
 					<div className="mx-2 my-2">
-						<h1>El tomate es la hortaliza más difundida en todo el mundo</h1>
-
+						<h3>El tomate es la hortaliza más difundida en todo el mundo</h3>
 						<p>
 							El tomate es la hortaliza más difundida en todo el mundo y la de mayor valor económico. Su
 							demanda aumenta continuamente y con ella su cultivo, producción y comercio. El incremento
@@ -87,11 +74,7 @@ export const Blog = () => {
 							las semillas. En casa, podemos seleccionamos los tomates más maduros, los partimos por la
 							mitad y sacamos el jugo con las semillas a un vaso. Lo mantendremos tres días para que
 							fermente y poder proceder a su lavado. Los tres días posteriores serán para su secado. El
-							Cultivo Lo primero es preparar la maceta. En esta tenemos que echar la tierra con un
-							sustrato de calidad hasta la mitad. El pH recomendado gira en torno a 6. También podemos
-							mejorarla con materiales orgánicos como el estiércol. Si contamos con tierra arenosa
-							utilizaremos fertilizantes para mejorar su calidad. La ubicación será esencial para su
-							crecimiento por lo que debemos asegurarnos de que el lugar es cálido y le da la luz.
+							Cultivo Lo primero es preparar la maceta.
 						</p>
 					</div>
 				</Carousel.Item>

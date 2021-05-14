@@ -11,6 +11,7 @@ import jwt_decode from "jwt-decode";
 
 export const CreateProfile = () => {
 	const { store, actions } = useContext(Context);
+
 	const [perfil, setPerfil] = useState(false);
 	const uri = "https://hierbabuenacr.herokuapp.com/api/";
 	const token = localStorage.getItem("jwt-token");
@@ -315,7 +316,19 @@ export const CreateProfile = () => {
 
 					<Mapa />
 
-					<button type="submit" className="btn btn-primary">
+					<button
+						type="submit"
+						className="btn btn-primary my-1"
+						onClick={() => {
+							const perfil = {
+								foto: baseImage,
+								nombre: nombre + " " + apellido,
+								correo: email,
+								telefono: telefono,
+								cobertura: coberturaKm
+							};
+							actions.cargarPerfil(perfil);
+						}}>
 						Crear Perfil
 					</button>
 				</form>

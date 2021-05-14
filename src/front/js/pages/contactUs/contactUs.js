@@ -3,6 +3,8 @@ import { Context } from "../../store/appContext";
 import "../../../styles/_contactUs.scss";
 import { Link } from "react-router-dom";
 import emailjs from "emailjs-com";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const ContactUs = () => {
 	const { store, actions } = useContext(Context);
@@ -12,7 +14,7 @@ export const ContactUs = () => {
 
 		emailjs.sendForm("service_mo73zxq", "template_contact", e.target, "user_EHqhSNy90W83VPfCk2Zm2").then(
 			result => {
-				alert("le agradecemos por su mensaje");
+				notify("Le agradecemos por su mensaje", "info");
 			},
 			error => {
 				console.log(error.text);
@@ -21,6 +23,21 @@ export const ContactUs = () => {
 
 		e.target.reset();
 	}
+	const notify = (mensaje, estado) => {
+		if (estado == "pass") {
+			toast.success(mensaje, {
+				position: toast.POSITION.TOP_CENTER
+			});
+		} else if (estado == "fail") {
+			toast.error(mensaje, {
+				position: toast.POSITION.TOP_LEFT
+			});
+		} else {
+			toast.info(mensaje, {
+				position: toast.POSITION.BOTTOM_CENTER
+			});
+		}
+	};
 
 	return (
 		<div className="container-fluid p-4">

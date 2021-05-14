@@ -25,7 +25,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			cantiCompra: 0,
 			id_perfil_producto: 0,
 			compras: [],
-			comprasCanti: 0
+			comprasCanti: 0,
+			userList: []
 		},
 		actions: {
 			ApiData: async (url, metodo, body, tipo) => {
@@ -167,8 +168,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						password: newPassword
-					})
+					}),
+					redirect: "follow"
 				};
+
 				fetch(uri + "user/" + id.toString(), requestOptions)
 					.then(response => response.json())
 					.then(data => {});
@@ -180,6 +183,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				setStore({ inicioSesion: false });
 				return "Su sesión ha finalizado";
+			},
+			cargarPerfil: objPerfil => {
+				const store = getStore();
+				setStore({ perfil: objPerfil });
 			}
 		}
 	};

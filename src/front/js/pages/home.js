@@ -21,7 +21,7 @@ export const Home = () => {
 			</div>
 			<div className="text-center container-fluid">
 				<div className="row mobileDiagramDiv">
-					<div className="col-7 col-md-3 mr-auto">
+					<div className="col-7 mr-auto p-0">
 						<img id="diagramMobile" src={diagramMobile} />
 					</div>
 					<div className="col-5">

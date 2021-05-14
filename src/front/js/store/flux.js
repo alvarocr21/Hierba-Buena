@@ -183,6 +183,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				setStore({ inicioSesion: false });
 				return "Su sesión ha finalizado";
+			},
+			cargarPerfil: objPerfil => {
+				const store = getStore();
+				setStore({ perfil: objPerfil });
 			}
 		}
 	};

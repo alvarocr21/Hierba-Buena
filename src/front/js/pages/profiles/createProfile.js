@@ -316,7 +316,19 @@ export const CreateProfile = () => {
 
 					<Mapa />
 
-					<button type="submit" className="btn btn-primary">
+					<button
+						type="submit"
+						className="btn btn-primary my-1"
+						onClick={() => {
+							const perfil = {
+								foto: baseImage,
+								nombre: nombre + " " + apellido,
+								correo: email,
+								telefono: telefono,
+								cobertura: coberturaKm
+							};
+							actions.cargarPerfil(perfil);
+						}}>
 						Crear Perfil
 					</button>
 				</form>

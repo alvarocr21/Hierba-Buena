@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
+
+
 export const RecoverPassword = () => {
 	const { store, actions } = useContext(Context);
 	const [email, setEmail] = useState([]);
@@ -12,6 +15,22 @@ export const RecoverPassword = () => {
 	useEffect(() => {
 		actions.fetchUsers();
 	}, []);
+
+	const notify = (mensaje, estado) => {
+		if (estado == "pass") {
+			toast.success(mensaje, {
+				position: toast.POSITION.TOP_CENTER
+			});
+		} else if (estado == "fail") {
+			toast.error(mensaje, {
+				position: toast.POSITION.TOP_LEFT
+			});
+		} else {
+			toast.info(mensaje, {
+				position: toast.POSITION.BOTTOM_CENTER
+			});
+		}
+	};
 
 	function sendEmail(e) {
 		e.preventDefault();
@@ -32,16 +51,17 @@ export const RecoverPassword = () => {
 					.send(
 						"service_mo73zxq",
 						"template_recover",
-						{ newPassword: password,
-						email:email},
+						{ newPassword: password, email: email },
 						"user_EHqhSNy90W83VPfCk2Zm2"
 					)
 					.then(
 						result => {
 							actions.updatePassword(newVal, id);
+
 							toast.success("Enviamos su nueva contraseña", {
 							position: toast.POSITION.TOP_CENTER
 							});
+
 						},
 						error => {
 							console.log(error.text);

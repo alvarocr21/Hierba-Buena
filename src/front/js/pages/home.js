@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import landingimg1 from "../../img/landingPage/landing 1.jpg";
 import logo from "../../img/landingPage/Hierbabuena-verde.png";
 import diagramMobile from "../../img/landingPage/diagramMobile.png";
-import diagram from "../../img/landingPage/diagram.png";
+import mainDiagram from "../../img/landingPage/mainDiagram.png";
 import veggieCar from "../../img/landingPage/veggieCar.png";
 import horizontalBackground from "../../img/landingPage/landingHorizontalBackground.jpg";
 import "../../styles/_home.scss";
@@ -19,7 +19,7 @@ export const Home = () => {
 			<div id="frame">
 				<img id="myImg" src={logo} />
 			</div>
-			<div className="text-center container-fluid mt-4">
+			<div className="text-center container-fluid">
 				<div className="row mobileDiagramDiv">
 					<div className="col-7 col-md-3 mr-auto">
 						<img id="diagramMobile" src={diagramMobile} />
@@ -44,7 +44,7 @@ export const Home = () => {
 				</div>
 				<div className="col diagramDiv">
 					<div className="row w-100 mr-auto">
-						<img id="diagram" src={diagram} />
+						<img id="diagram" src={mainDiagram} />
 					</div>
 					<div className="row justify-content-center mb-5">
 						<div className="col-md-4 diagramtext3">
